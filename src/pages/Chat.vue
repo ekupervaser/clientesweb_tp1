@@ -37,7 +37,7 @@ export default {
 <template>
     <h1 class="text-3xl font-black mb-4">TP 1</h1>
 
-    <p class="mb-3">Leyendo los mensajes del chat, ahora en tiempo real</p>
+    <p class="mb-3">Leyendo los mensajes del chat en tiempo real</p>
 
     <div class="flex gap-5 justify-between">
 
@@ -47,7 +47,7 @@ export default {
         >
             <div class="mb-2">
                 <label class="block font-bold" for="user">Usuario</label>
-                <input class="border border-blue-500 rounded p-1"
+                <input class="border border-blue-500 rounded p-1 w-full"
                     type="text"
                     id="user"
                     v-model="newMessage.user"
@@ -55,7 +55,7 @@ export default {
             </div>
             <div class="mb-2">
                 <label class="block font-bold" for="message">Mensaje</label>
-                <textarea class="border border-blue-500 rounded p-1"
+                <textarea class="border border-blue-500 rounded p-1 w-full"
                     id="message"
                     v-model="newMessage.message"
                 ></textarea>
@@ -67,6 +67,7 @@ export default {
             <div class="mb-3" v-for="message in messages">
                 <div><b>Usuario:</b> {{ message.user }}</div>
                 <div><b>Mensaje:</b> {{ message.message }}</div>
+                <div class="text-right">{{ message.created_at }}</div>
             </div>
             </div>
     </div>
