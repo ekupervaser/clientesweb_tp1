@@ -1,25 +1,54 @@
 <script>
+import BaseButton from '../components/BaseButton.vue';
+import BaseLabel from '../components/BaseLabel.vue';
+import BaseInput from '../components/BaseInput.vue';
+import { login } from '../services/Auth';
+
      export default {
-          name: 'Login',
-     }
+    name: 'Login',
+    components: { BaseButton, BaseLabel, BaseInput },
+    data() {
+        return {
+            isLoading: false,
+            form: {
+                email: '',
+                password: '',
+            }
+        }
+    },
+    methods: {
+        doLogin() {
+            this.isLoading = true;
+
+            login({
+                ...this.form,
+            });
+        }
+    }
+}
 </script>
 
 <template>
      <h1 class="text-3xl font-black mb-4">Iniciar sesión</h1>
-
-     <form action="#">
+     <form action="#"
+     @submit.prevent="doLogin"
+     >
         <div>
-            <label for="email">Email</label>
-            <input 
+            <BaseLabel for="email">Email</BaseLabel>
+            <BaseInput
             type="email" 
-            id="email">
+            id="email"
+            v-model="form.email"
+            />
         </div>
         <div>
-            <label for="password">Contraseña</label>
-            <input 
+            <BaseLabel for="password">Contraseña</BaseLabel>
+            <BaseInput 
             type="password" 
-            id="password">
+            id="password"
+            v-model="form.password"
+            />
         </div>
-        <button type="submit">Ingresar</button>
+        <BaseButton>Iniciar sesión</BaseButton>
      </form>
 </template>

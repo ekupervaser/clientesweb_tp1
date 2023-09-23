@@ -1,11 +1,20 @@
 <script>
 import {chatSubscribeToMessages, chatSaveMessage} from "../services/chat.js";
+import { dateToString } from '../helpers/date'
+import BaseButton from "../components/BaseButton.vue"
+import BaseInput from "../components/BaseInput.vue";
+import BaseTextarea from "../components/BaseTextarea.vue";
+import BaseLabel from "../components/BaseLabel.vue"
+import Loader from "../components/Loader.vue";
 
 export default {
     name: "Chat",
+    components: { BaseButton, BaseInput, BaseTextarea, BaseLabel, Loader },
     data() {
         return {
+            isLoading: true, 
             messages: [],
+            isSaving: false,
             newMessage: {
                 user: '',
                 message: '',
@@ -15,6 +24,8 @@ export default {
 
     methods: {
         sendMessage() {
+            if(this.isSaving) return;
+            this.isSaving = true;
             chatSaveMessage({
                 user: this.newMessage.user,
                 message: this.newMessage.message,
@@ -22,13 +33,20 @@ export default {
             })
                 .then(() => {
                     this.newMessage.message = '';
+                    this.isSaving = false;
                 });
+        },
+
+        formatDate(date) {
+            return dateToString(date);
         }
     },
 
     mounted() {
+        this.isLoading = true;
         chatSubscribeToMessages(messages => {
             this.messages = messages;
+            this.isLoading = false;
         });
     }
 };
@@ -46,29 +64,37 @@ export default {
             @submit.prevent="sendMessage"
         >
             <div class="mb-2">
-                <label class="block font-bold" for="user">Usuario</label>
-                <input class="border border-blue-500 rounded p-1 w-full"
+                <BaseLabel for="user">Usuario</BaseLabel>
+                <BaseInput
                     type="text"
                     id="user"
                     v-model="newMessage.user"
                 >
+                </BaseInput>
             </div>
             <div class="mb-2">
-                <label class="block font-bold" for="message">Mensaje</label>
-                <textarea class="border border-blue-500 rounded p-1 w-full"
+                <BaseLabel for="message">Mensaje</BaseLabel>
+               <BaseTextarea
                     id="message"
                     v-model="newMessage.message"
-                ></textarea>
+                ></BaseTextarea>
             </div>
-            <button class="my-3 py-1 px-3 rounded w-full bg-blue-700 text-white" type="submit">Enviar</button>
-        </form>
+            <BaseButton
+            :loading="isSaving"
+            ></BaseButton>
+       </form>
 
         <div>
-            <div class="mb-3" v-for="message in messages">
-                <div><b>Usuario:</b> {{ message.user }}</div>
-                <div><b>Mensaje:</b> {{ message.message }}</div>
-                <div class="text-right">{{ message.created_at }}</div>
+            <div v-if="!isLoading">
+                <div class="mb-3" v-for="message in messages"
+                key="message.id"
+                >
+                    <div><b>Usuario:</b> {{ message.user }}</div>
+                    <div><b>Mensaje:</b> {{ message.message }}</div>
+                    <div class="text-right">{{ formatDate(message.created_at) }}</div>
+                </div>
             </div>
-            </div>
+        <div v-else><Loader /></div>
     </div>
+</div>
 </template>
