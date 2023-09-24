@@ -1,7 +1,7 @@
 <script>
 import BaseButton from '../components/BaseButton.vue'
 import BaseLabel from '../components/BaseLabel.vue';
-import BaseButton from '../components/BaseInput.vue';
+import BaseInput from '../components/BaseInput.vue';
 
      export default {
     name: 'Register',

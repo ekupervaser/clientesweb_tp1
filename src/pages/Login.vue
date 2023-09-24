@@ -4,9 +4,10 @@ import BaseLabel from '../components/BaseLabel.vue';
 import BaseInput from '../components/BaseInput.vue';
 import { login } from '../services/Auth';
 
-     export default {
+export default {
     name: 'Login',
     components: { BaseButton, BaseLabel, BaseInput },
+    emits: ['logged'],
     data() {
         return {
             isLoading: false,
@@ -22,6 +23,12 @@ import { login } from '../services/Auth';
 
             login({
                 ...this.form,
+            })
+            .then(user => {
+                this.$emit('logged', {...user});
+            })
+            .finally(() => {
+                this.isLoading = false;
             });
         }
     }
