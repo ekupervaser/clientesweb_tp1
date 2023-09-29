@@ -6,6 +6,7 @@ import BaseInput from "../components/BaseInput.vue";
 import BaseTextarea from "../components/BaseTextarea.vue";
 import BaseLabel from "../components/BaseLabel.vue"
 import Loader from "../components/Loader.vue";
+import { subscribeToAuth } from "../services/Auth";
 
 export default {
     name: "Chat",
@@ -16,9 +17,14 @@ export default {
             messages: [],
             isSaving: false,
             newMessage: {
-                user: '',
                 message: '',
-            }
+            },
+            user: {
+                id: null,
+                email: null,
+            },
+            unsubscribeAuth: () => {},
+            unsubscribeChat: () => {},
         }
     },
 
@@ -27,7 +33,7 @@ export default {
             if(this.isSaving) return;
             this.isSaving = true;
             chatSaveMessage({
-                user: this.newMessage.user,
+                user: this.user.email,
                 message: this.newMessage.message,
                 // ...this.newMessage // Podríamos haberlo escrito así, también.
             })
@@ -44,10 +50,15 @@ export default {
 
     mounted() {
         this.isLoading = true;
-        chatSubscribeToMessages(messages => {
+        this.unsubscribeChat = chatSubscribeToMessages(messages => {
             this.messages = messages;
             this.isLoading = false;
         });
+        this.unsubscribeAuth = subscribeToAuth(newUser => this.user = {...newUser});
+    },
+    unmounted() {
+        this.unsubscribeAuth();
+        this.unsubscribeChat();
     }
 };
 </script>
@@ -64,13 +75,8 @@ export default {
             @submit.prevent="sendMessage"
         >
             <div class="mb-2">
-                <BaseLabel for="user">Usuario</BaseLabel>
-                <BaseInput
-                    type="text"
-                    id="user"
-                    v-model="newMessage.user"
-                >
-                </BaseInput>
+                <p class="mb-2 font-bold">Usuario</p>
+                <p>{{ user.email }}</p>
             </div>
             <div class="mb-2">
                 <BaseLabel for="message">Mensaje</BaseLabel>

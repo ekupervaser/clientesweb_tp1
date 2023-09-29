@@ -1,5 +1,5 @@
 import { auth } from "./firebase";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 let userData = {
   id: null,
@@ -7,6 +7,23 @@ let userData = {
 }
 
 let observers = [];
+
+if (localStorage.getItem('user')) {
+  userData = JSON.parse(localStorage.getItem('user'));
+}
+
+onAuthStateChanged(auth, user => {
+  if (user) {
+    setUserData({
+      id: user.uid,
+      email: user.email,
+    });
+    localStorage.setItem('user', JSON.stringify(userData));
+  } else {
+    clearUserData();
+    localStorage.removeItem('user');
+  }
+})
 /**
  * 
  * @param {{email: string, password: string}} user 
@@ -16,12 +33,6 @@ export function login({email, password}) {
     return signInWithEmailAndPassword(auth, email, password)
         .then(userCredentials => {
           console.log("Sesión iniciada", userCredentials);
-
-          setUserData({
-              id: userCredentials.user.uid,
-              email:userCredentials.user.email,
-          })
-
           return userData;
         })
         .catch(error => {
@@ -37,8 +48,6 @@ export function login({email, password}) {
  * @returns {Promise}
  */
 export function logout () {
-  const promise = signOut(auth);
-  clearUserData();
 
   return signOut(auth);
 }
@@ -46,11 +55,16 @@ export function logout () {
 /**
  * 
  * @param {({id: null|string, email: null|string}) => void} observer 
+ * @returns {() => void} Función para cancelar la suscripción
  */
 export function subscribeToAuth(observer) {
   observers.push(observer);
 
   notify(observer);
+
+  return () => {
+    observers = observers.filter(obs => obs !== observer);
+  }
 }
 
 function notify(observer) {

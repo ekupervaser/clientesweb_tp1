@@ -1,6 +1,6 @@
 <script>
 import Chat from './pages/Chat.vue';
-import { logout, subscribeToAuth } from './services/auth'
+import { logout, subscribeToAuth } from './services/Auth'
 
 export default {
     name: "App",
@@ -50,7 +50,10 @@ export default {
                 </template>
                 <template v-else>
                     <li>
-                        <router-link to="/registro">Mi perfil</router-link>
+                        <router-link to="/chat">Chat</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/perfil">Mi perfil</router-link>
                     </li>
                     <li>
                         <form action=""
