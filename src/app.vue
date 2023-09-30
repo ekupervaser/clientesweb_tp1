@@ -1,6 +1,5 @@
 <script>
 import Chat from './pages/Chat.vue';
-import Cursos from './components/Cursos.vue'
 import { logout, subscribeToAuth } from './services/Auth'
 import Home from './pages/Home.vue';
 

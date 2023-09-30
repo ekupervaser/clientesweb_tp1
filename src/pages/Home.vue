@@ -1,9 +1,9 @@
 <script>
-import Cursos from '../components/Cursos.vue'
-     export default {
-          name: 'Home',
-          components: { Cursos },
-     }
+import CourseCards from '../components/CourseCards.vue'
+export default {
+     name: 'Home',
+     components: { CourseCards },
+}
 
 </script>
 
@@ -11,6 +11,6 @@ import Cursos from '../components/Cursos.vue'
      <h1 class="text-3xl font-black mb-4">iLearn</h1>
      <p>Únete a la Revolución del Aprendizaje con <strong>iLearn</strong></p>
      
-     <Cursos></Cursos>
+     <div><CourseCards></CourseCards></div>
 
 </template>

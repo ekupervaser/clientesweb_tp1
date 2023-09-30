@@ -35,7 +35,6 @@ export default {
             chatSaveMessage({
                 user: this.user.email,
                 message: this.newMessage.message,
-                // ...this.newMessage // Podríamos haberlo escrito así, también.
             })
                 .then(() => {
                     this.newMessage.message = '';
