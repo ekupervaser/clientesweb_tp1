@@ -5,6 +5,7 @@ import About from './../pages/About.vue'
 import Chat from './../pages/Chat.vue'
 import Register from './../pages/Register.vue'
 import Login from './../pages/Login.vue'
+import Panel from './../pages/Panel.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { subscribeToAuth } from '../services/Auth'
 
@@ -12,9 +13,11 @@ const routes = [
     {path: '/',              component: Home},
     {path: '/perfil',        component: Profile, meta: { requiresAuth: true }, },
     {path: '/chat',          component: Chat,    meta: { requiresAuth: true }, },
+    {path: '/panel',         component: Panel,   meta: { requiresAuth: true }, },
     {path: '/quienes-somos', component: About},
     {path: '/registro',      component: Register},
     {path: '/login',         component: Login},
+
 ];
 
 const router = createRouter({

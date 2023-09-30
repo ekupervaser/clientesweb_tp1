@@ -31,7 +31,7 @@ export default {
 
     <header class="flex gap-4 items-center p-4 bg-blue-50">
         <div>
-            <p class="text-xl">Página principal</p>
+            <p class="text-xl">iLearn</p>
         </div>
         <nav>
             <ul class="flex gap-5">
@@ -55,6 +55,9 @@ export default {
                     </li>
                     <li>
                         <router-link to="/perfil">Mi perfil</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/panel">Panel</router-link>
                     </li>
                     <li>
                         <form action=""

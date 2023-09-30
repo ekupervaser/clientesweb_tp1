@@ -8,9 +8,9 @@ export default {
 </script>
 
 <template>
-     <h1 class="text-3xl font-black mb-4">iLearn</h1>
-     <p>Únete a la Revolución del Aprendizaje con <strong>iLearn</strong></p>
+     <h1 class="text-3xl font-black mb-4 text-center">iLearn</h1>
+     <p class="text-xl text-center">Únete a la Revolución del Aprendizaje con <strong>iLearn</strong></p>
      
-     <div><CourseCards></CourseCards></div>
+     <div class="mt-5"><CourseCards></CourseCards></div>
 
 </template>
