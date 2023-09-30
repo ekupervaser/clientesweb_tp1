@@ -1,10 +1,12 @@
 <script>
 import Chat from './pages/Chat.vue';
+import Cursos from './components/Cursos.vue'
 import { logout, subscribeToAuth } from './services/Auth'
+import Home from './pages/Home.vue';
 
 export default {
     name: "App",
-    components: {Chat},
+    components: { Chat, Home },
     data() {
         return {
             user: {
@@ -67,12 +69,7 @@ export default {
         </nav>
     </header>
 
-    <!--
-    Acá va a venir el renderizado de las rutas cuando agreguemos Vue Router.
-    Mientras tanto, vamos a renderizar la "vista" del Chat.
-    -->
     <div class="container m-auto p-10">
-     <!--    <Chat /> -->
 
      <router-view></router-view>
     </div>
