@@ -41,6 +41,8 @@ export default {
 <template>
 <h1 class="text-3xl font-black mb-4 text-center">Panel de administración</h1>
 
+<p class="font-black mb-4">Agregar nuevo curso</p>
+
 <form action="#"
 @submit.prevent="saveCourse"
 >
