@@ -24,7 +24,6 @@ export default {
 <template>
 
 <div class="container flex flex-col">
-    <p class="mb-3 w-3/4 text-center mx-auto">Ya sea que estés buscando mejorar tus habilidades profesionales, explorar nuevos intereses o avanzar en tu carrera, en iLearn tenemos la experiencia y el conocimiento para guiarte.</p>
 
     <div class="flex gap-5 justify-between mt-3">
             <div v-if="!isLoading" class="bg-white rounded-lg shadow-md w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 px-4 mb-4 flex flex-col justify-between p-4" v-for="course in courses"

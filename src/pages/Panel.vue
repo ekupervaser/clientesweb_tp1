@@ -4,11 +4,12 @@ import BaseButton from '../components/BaseButton.vue';
 import BaseInput from '../components/BaseInput.vue';
 import BaseLabel from '../components/BaseLabel.vue';
 import BaseTextarea from '../components/BaseTextarea.vue';
+import CoursePanel from '../components/CoursePanel.vue';
 import { subscribeToAuth } from "../services/Auth";
 
 export default {
     name: 'Panel',
-    components: { BaseButton, BaseInput, BaseLabel, BaseTextarea },
+    components: { BaseButton, BaseInput, BaseLabel, BaseTextarea, CoursePanel },
     data() {
         return {
             isLoading: true, 
@@ -61,13 +62,13 @@ export default {
             v-model="newCourse.description"/>
         </div>
         <div>
-            <BaseLabel for="price">Percio</BaseLabel>
+            <BaseLabel for="price">Precio</BaseLabel>
             <BaseInput 
             id="price"
             v-model="newCourse.price"/>
         </div>
         <BaseButton>Cargar curso</BaseButton>
      </form>
-
 </div>
+<CoursePanel></CoursePanel>
 </template>

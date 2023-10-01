@@ -8,7 +8,7 @@ export default {
 
 <template>
     <input 
-    class="border border-blue-500 rounded p-1 w-full"
+    class="border border-blue-500 rounded p-1 mb-2 w-full"
     :value="modelValue"
     @input="$emit('update:modelValue', $event.target.value)"
     >
