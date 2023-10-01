@@ -25,7 +25,7 @@ export default {
 
 <div class="container flex flex-col">
 
-    <div class="flex gap-5 justify-between mt-3">
+    <div class="flex flex-col md:flex-row gap-5 justify-between mt-3">
             <div v-if="!isLoading" class="bg-white rounded-lg shadow-md w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3 px-4 mb-4 flex flex-col justify-between p-4" v-for="course in courses"
             key="course.id"
             >
@@ -38,7 +38,7 @@ export default {
                 </div>
             <!--     <div><img :src="course.image" alt="bla"></div> -->
             </div>
-            <div v-else><Loader></Loader></div>
+            <div class="m-auto" v-else><Loader></Loader></div>
         </div>
     </div>
 </template>

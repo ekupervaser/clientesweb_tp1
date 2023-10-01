@@ -30,15 +30,14 @@ export default {
 </script>
 
 <template>
+    <div class="container">
 
-    <Header></Header>
+        <Header></Header>
+        
+        <div class="container m-auto p-10">
+        <router-view></router-view>
+        </div>
 
-    <div class="container m-auto p-10">
-
-     <router-view></router-view>
-
+        <Footer></Footer>
     </div>
-
-    <Footer></Footer>
-
 </template>
