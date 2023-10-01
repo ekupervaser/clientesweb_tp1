@@ -2,10 +2,11 @@
 import Chat from './pages/Chat.vue';
 import { logout, subscribeToAuth } from './services/Auth'
 import Home from './pages/Home.vue';
+import Footer from './components/Footer.vue';
 
 export default {
     name: "App",
-    components: { Chat, Home },
+    components: { Chat, Home, Footer },
     data() {
         return {
             user: {
@@ -76,7 +77,5 @@ export default {
      <router-view></router-view>
     </div>
 
-    <footer class="bg-blue-700 text-white h-20 flex justify-center items-center">
-        <p>Trabajo práctico N° 1</p>
-    </footer>
+<Footer></Footer>
 </template>

@@ -39,6 +39,8 @@ export default {
 </script>
 
 <template>
+
+<div class="max-w-screen-sm flex flex-col justify-center m-auto">
 <h1 class="text-3xl font-black mb-4 text-center">Panel de administración</h1>
 
 <p class="font-black mb-4">Agregar nuevo curso</p>
@@ -67,4 +69,5 @@ export default {
         <BaseButton>Cargar curso</BaseButton>
      </form>
 
+</div>
 </template>
