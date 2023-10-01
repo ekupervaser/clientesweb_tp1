@@ -10,7 +10,7 @@ export default {
             <div class="flex justify-between items-center p-4 w-full">
                 <div>
                     <p>Clientes Web Mobile</p>
-                    <p>Trazajo Práctico N° 1</p>
+                    <p>Trabajo Práctico N° 1</p>
                 </div>
                 <div>
                     <p>Ezequiel Kupervaser</p>
