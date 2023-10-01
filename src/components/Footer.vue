@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-     <footer class="bg-blue-700 text-white h-20 flex justify-center">
+     <footer class="bg-blue-700 text-white h-20 flex justify-center bottom">
         <div class="container m-auto">
             <div class="flex justify-between items-center p-4 w-full">
                 <div>
