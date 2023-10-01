@@ -32,7 +32,7 @@ export default {
 
     <header class="flex gap-4 items-center p-4 bg-blue-50">
         <div>
-            <p class="text-xl">iLearn</p>
+            <img src="../favicon-32x32.png" alt="">
         </div>
         <nav>
             <ul class="flex gap-5">
