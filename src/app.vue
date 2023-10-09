@@ -43,7 +43,7 @@ export default {
                         <router-link to="/">Home</router-link>
                     </li>
                     <li>
-                        <router-link to="/quienes-somos">About</router-link>
+                        <router-link to="/cursos">Cursos</router-link>
                     </li>
                     <template v-if="user.id === null">
                         <li>
