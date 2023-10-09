@@ -2,28 +2,57 @@
 import BaseButton from '../components/BaseButton.vue'
 import BaseLabel from '../components/BaseLabel.vue';
 import BaseInput from '../components/BaseInput.vue';
+import { register } from '../services/Auth';
 
      export default {
     name: 'Register',
-    components: { BaseButton, BaseLabel, BaseInput }
+    components: { BaseButton, BaseLabel, BaseInput },
+    data() {
+        return {
+            isLoading: false,
+            newUser: {
+                email: '',
+                password: '',
+            },
+        }
+    },
+    methods: {
+        async handleSubmit() {
+            this.isLoading = true;
+            try {
+                await register({...this.newUser});
+                this.$router.push('/');
+            } catch (error) {
+                //manejo del error
+            }
+            this.isLoading = false;
+          
+        }
+    },
 }
 </script>
 
 <template>
     <div class="max-w-screen-sm flex flex-col justify-center m-auto">
         <h1 class="text-3xl font-black mb-4">Crear cuenta</h1>
-        <form action="#">
+        <form action="#"
+        @submit.prevent="handleSubmit"
+        >
             <div>
                 <BaseLabel for="email">Email</BaseLabel>
                 <BaseInput 
                 type="email" 
-                id="email"/>
+                id="email"
+                v-model="newUser.email"
+                />
             </div>
             <div>
                 <BaseLabel for="password">Contraseña</BaseLabel>
                 <BaseInput 
                 type="password" 
-                id="password"/>
+                id="password"
+                v-model="newUser.password"
+                />
             </div>
             <BaseButton>Registrarme</BaseButton>
         </form>

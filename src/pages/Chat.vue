@@ -33,6 +33,7 @@ export default {
             if(this.isSaving) return;
             this.isSaving = true;
             chatSaveMessage({
+                userId: this.user.id,
                 user: this.user.email,
                 message: this.newMessage.message,
             })
@@ -94,7 +95,10 @@ export default {
                 <div class="mb-3" v-for="message in messages"
                 key="message.id"
                 >
-                    <div><b>Usuario:</b> {{ message.user }}</div>
+                    <div>
+                        <b>Usuario:</b> 
+                        <router-link :to="`/usuario/${message.userId}`" class=" ml-1 text-blue-600 underline"> {{ message.user }}</router-link>
+                    </div>
                     <div><b>Mensaje:</b> {{ message.message }}</div>
                     <div class="text-right">{{ formatDate(message.created_at) }}</div>
                 </div>

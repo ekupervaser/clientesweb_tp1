@@ -26,6 +26,7 @@ export default {
             })
             .then(user => {
                 this.$emit('logged', {...user});
+                this.$router.push('/');
             })
             .finally(() => {
                 this.isLoading = false;
@@ -44,6 +45,7 @@ export default {
             <div>
                 <BaseLabel for="email">Email</BaseLabel>
                 <BaseInput
+                :disabled="isLoading"
                 type="email" 
                 id="email"
                 v-model="form.email"
@@ -52,12 +54,13 @@ export default {
             <div>
                 <BaseLabel for="password">Contraseña</BaseLabel>
                 <BaseInput 
+                :disabled="isLoading"
                 type="password" 
                 id="password"
                 v-model="form.password"
                 />
             </div>
-            <BaseButton>Iniciar sesión</BaseButton>
+            <BaseButton :loading="isLoading">Iniciar sesión</BaseButton>
         </form>
      </div>
 </template>

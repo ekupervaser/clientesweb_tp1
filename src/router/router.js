@@ -1,8 +1,10 @@
 
 import Home from './../pages/Home.vue'
-import Profile from './../pages/Profile.vue'
+import MyProfile from './../pages/MyProfile.vue'
+import UserProfile from './../pages/UserProfile.vue'
 import About from './../pages/About.vue'
 import Chat from './../pages/Chat.vue'
+import PrivateChat from './../pages/PrivateChat.vue'
 import Register from './../pages/Register.vue'
 import Login from './../pages/Login.vue'
 import Panel from './../pages/Panel.vue'
@@ -10,13 +12,15 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { subscribeToAuth } from '../services/Auth'
 
 const routes = [
-    {path: '/',              component: Home},
-    {path: '/perfil',        component: Profile, meta: { requiresAuth: true }, },
-    {path: '/chat',          component: Chat,    meta: { requiresAuth: true }, },
-    {path: '/panel',         component: Panel,   meta: { requiresAuth: true }, },
-    {path: '/quienes-somos', component: About},
-    {path: '/registro',      component: Register},
-    {path: '/login',         component: Login},
+    {path: '/',                 component: Home},
+    {path: '/perfil',           component: MyProfile,      meta: { requiresAuth: true }, },
+    {path: '/usuario/:id',      component: UserProfile,    meta: { requiresAuth: true }, },
+    {path: '/chat',             component: Chat,           meta: { requiresAuth: true }, },
+    {path: '/usuario/:id/chat', component: PrivateChat,    meta: { requiresAuth: true }, },
+    {path: '/panel',            component: Panel,          meta: { requiresAuth: true }, },
+    {path: '/quienes-somos',    component: About},
+    {path: '/registro',         component: Register},
+    {path: '/login',            component: Login},
 
 ];
 

@@ -1,5 +1,6 @@
 import { auth } from "./firebase";
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserProfile } from './user.js';
 
 let userData = {
   id: null,
@@ -24,7 +25,35 @@ onAuthStateChanged(auth, user => {
     localStorage.removeItem('user');
   }
 })
+
 /**
+ * Función para registrarse
+ * 
+ * @param {{email: string, password: string}} user
+ * @return {Promise}
+ */
+export async function register({email, password}) {
+  try {
+    const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+
+     // Función para crear el usuario en Firestore
+    createUserProfile(userCredentials.user.uid, {email});
+
+    return {
+      id: userCredentials.user.uid,
+      email: userCredentials.user.email,
+    }
+  } catch (error) {
+    return {
+      code: error.code,
+      message: error.message,
+    }
+  }
+}
+
+
+/**
+ * Función para iniciar sesión
  * 
  * @param {{email: string, password: string}} user 
  * @return {Promise}
@@ -95,5 +124,5 @@ function clearUserData () {
 }
 
 export function getUserData () {
-  return {...userData}
+  return {...userData};
 }
