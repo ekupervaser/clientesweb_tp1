@@ -2,7 +2,6 @@
 import Home from './../pages/Home.vue'
 import MyProfile from './../pages/MyProfile.vue'
 import UserProfile from './../pages/UserProfile.vue'
-import About from './../pages/About.vue'
 import Chat from './../pages/Chat.vue'
 import PrivateChat from './../pages/PrivateChat.vue'
 import Register from './../pages/Register.vue'
@@ -20,7 +19,6 @@ const routes = [
     {path: '/usuario/:id/chat', component: PrivateChat,    meta: { requiresAuth: true }, },
     {path: '/panel',            component: Panel,          meta: { requiresAuth: true }, },
     {path: '/cursos',           component: Courses},
-    {path: '/quienes-somos',    component: About},
     {path: '/registro',         component: Register},
     {path: '/login',            component: Login},
 

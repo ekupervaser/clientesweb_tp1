@@ -32,7 +32,7 @@ export default {
 <template>
 
 <header>
-    <div class=" bg-blue-50">
+    <div class="bg-blue-50">
         <div class="container m-auto flex gap-4 items-center p-4">
             <div>
                 <img src="../../favicon-32x32.png" alt="">
