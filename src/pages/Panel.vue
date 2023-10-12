@@ -20,6 +20,8 @@ export default {
 <template>
     <div class="max-w-screen-sm flex flex-col justify-center m-auto">
         <h1 class="text-3xl font-black mb-4 text-center">Panel de administración</h1>
+        <p class="font-black mb-4 text-center">¡Agrega y elimina los cursos cuando desees!</p>
+
     </div>
         <CoursePanel></CoursePanel>
     <div class="flex">
