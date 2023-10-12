@@ -1,5 +1,6 @@
 <script>
 import { importCursos } from '../services/courses.js'
+import { deleteCourse } from '../services/panel.js'
 import Loader from './Loader.vue';
 
 export default {
@@ -10,6 +11,20 @@ export default {
             courses: [],
         };
     },
+    methods: {
+    eliminarCurso(cursoId) {
+      // Llamar a la función para eliminar el curso pasando el ID del curso
+      deleteCourse(cursoId)
+        .then(() => {
+          console.log('Curso eliminado con éxito');
+          // Recargar la lista de cursos si es necesario
+          // Por ejemplo, puedes volver a cargar la lista llamando a importCursos
+        })
+        .catch((error) => {
+          console.error('Error al eliminar el curso:', error);
+        });
+    },
+  },
     mounted() {
         this.isLoading = true;
         importCursos(courses => {
@@ -42,7 +57,7 @@ export default {
           <td class="border px-6 py-4">$ {{course.price}}</td>
           <td class="border px-6 py-4">
             <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Editar</button>
-            <button class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">Eliminar</button>
+            <button @click="eliminarCurso(course.id)" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">Eliminar</button>
           </td>
         </tr>
       </tbody>

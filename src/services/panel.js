@@ -1,5 +1,5 @@
 import {db} from './firebase.js';
-import {addDoc, collection, onSnapshot, query} from "firebase/firestore";
+import {addDoc, collection, onSnapshot, query, doc, deleteDoc} from "firebase/firestore";
 
 const refCursos = collection(db, 'cursos');
 
@@ -32,3 +32,27 @@ export function getCourses(callback) {
         callback(data);
     });
 }
+
+
+export async function updateCourse(courseId) {
+    const courseRef = doc(db, "cursos", courseId);
+
+    updateDoc(courseRef, this.nuevosDatos)
+      .then(() => {
+        console.log("Documento actualizado con éxito.");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
+
+
+export async function deleteCourse(courseId) {
+    const courseRef = doc(db, "cursos", courseId); 
+    try {
+      await deleteDoc(courseRef);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  

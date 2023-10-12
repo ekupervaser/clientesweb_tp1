@@ -38,7 +38,7 @@ export default {
                 </div>
             <!--     <div><img :src="course.image" alt="bla"></div> -->
             </div>
-            <div class="m-auto" v-else><Loader></Loader></div>
+            <div v-else><Loader></Loader></div>
         </div>
     </div>
 </template>
