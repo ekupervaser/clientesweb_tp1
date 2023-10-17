@@ -100,7 +100,7 @@ export default {
                         <router-link :to="`/usuario/${message.userId}`" class=" ml-1 text-blue-600 underline"> {{ message.user }}</router-link>
                     </div>
                     <div><b>Mensaje:</b> {{ message.message }}</div>
-                    <div class="text-right">{{ formatDate(message.created_at) }}</div>
+                    <div class="text-right">{{ formatDate(message.created_at) || 'Enviando...' }}</div>
                 </div>
             </div>
         <div v-else><Loader /></div>

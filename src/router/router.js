@@ -9,6 +9,8 @@ import Login from './../pages/Login.vue'
 import Panel from './../pages/Panel.vue'
 import NewCourse from './../pages/NewCourse.vue'
 import Courses from './../pages/Courses.vue'
+import Contact from './../pages/Contact.vue'
+import UsersList from './../pages/UsersList.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { subscribeToAuth } from '../services/Auth'
 
@@ -20,6 +22,8 @@ const routes = [
     {path: '/usuario/:id/chat', component: PrivateChat,    meta: { requiresAuth: true }, },
     {path: '/panel',            component: Panel,          meta: { requiresAuth: true }, },
     {path: '/cargar-curso',     component: NewCourse,      meta: { requiresAuth: true }, },
+    {path: '/contacto',         component: Contact,        meta: { requiresAuth: true }, },
+    {path: '/usuarios',         component: UsersList,      meta: { requiresAuth: true }, },
     {path: '/cursos',           component: Courses},
     {path: '/registro',         component: Register},
     {path: '/login',            component: Login},

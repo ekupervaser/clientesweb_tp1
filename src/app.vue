@@ -54,15 +54,25 @@ export default {
                             </li>
                         </template>
                         <template v-else>
-                            <li>
-                                <router-link to="/chat">Chat</router-link>
-                            </li>
+                            <template v-if="user.id === 'lpzKk2JucWR1Bqyr3IOWlht8LQ33'">
+                                <li>
+                                    <router-link to="/usuarios">Usuarios</router-link>
+                                </li>
+                            </template>
                             <li>
                                 <router-link to="/perfil">Mi perfil</router-link>
                             </li>
-                            <li>
-                                <router-link to="/panel">Panel</router-link>
-                            </li>
+                            <template v-if="user.id === 'lpzKk2JucWR1Bqyr3IOWlht8LQ33'">
+                                <li>
+                                    <router-link to="/panel">Panel</router-link>
+                                </li>
+                            </template>
+                            <template v-if="user.id !== 'lpzKk2JucWR1Bqyr3IOWlht8LQ33'">
+                                <li>
+                                    <router-link to="/contacto">Contacto</router-link>
+                                </li>
+                            </template>
+                            
                             <li>
                                 <form action=""
                                 @submit.prevent="handleLogout"
