@@ -9,12 +9,13 @@ import { db } from "./firebase";
 export async function getUsers() {
     const querySnapshot = await getDocs(collection(db, "users"));
     const userList = [];
-    console.log(userList);
 
     querySnapshot.forEach((doc) => {
-        userList.push({
-            id: doc.id, 
-            email: doc.data().email});
+        if (doc.id !== 'lpzKk2JucWR1Bqyr3IOWlht8LQ33') {
+            userList.push({
+                id: doc.id, 
+                email: doc.data().email});
+        }
     });
 
     return userList;

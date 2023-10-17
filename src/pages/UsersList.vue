@@ -34,7 +34,7 @@ methods: {
 
     <template v-else>
         <div>
-            <h1>Listado de Usuarios</h1>
+            <h1>Listado de usuarios para contactar</h1>
             <ul>
                 <li v-for="user in userList">
                     <router-link :to="`/usuario/${user.id}`" class=" ml-1 text-blue-600 underline">{{ user.email }}</router-link>
