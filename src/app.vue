@@ -3,6 +3,7 @@ import Chat from './pages/Chat.vue';
 import { logout, subscribeToAuth } from './services/Auth'
 import Home from './pages/Home.vue';
 import Footer from './components/Footer.vue';
+import { getUserProfileById } from './services/user';
 
 export default {
     name: "App",
@@ -12,7 +13,8 @@ export default {
             user: {
                 id: null,
                 email: null,
-            }
+            },
+            userFirestore: {},
         }
     },
     methods: {
@@ -22,8 +24,9 @@ export default {
         }
     },
     mounted() {
-        subscribeToAuth(user => {
+        subscribeToAuth(async user => {
             this.user = {...user};
+            this.userFirestore = await getUserProfileById(this.user.id);
         });
     }
 };
@@ -54,7 +57,7 @@ export default {
                             </li>
                         </template>
                         <template v-else>
-                            <template v-if="user.id === 'lpzKk2JucWR1Bqyr3IOWlht8LQ33'">
+                            <template v-if="userFirestore.role === 'admin'">
                                 <li>
                                     <router-link to="/usuarios">Usuarios</router-link>
                                 </li>
@@ -62,12 +65,12 @@ export default {
                             <li>
                                 <router-link to="/perfil">Mi perfil</router-link>
                             </li>
-                            <template v-if="user.id === 'lpzKk2JucWR1Bqyr3IOWlht8LQ33'">
+                            <template v-if="userFirestore.role === 'admin'">
                                 <li>
                                     <router-link to="/panel">Panel</router-link>
                                 </li>
                             </template>
-                            <template v-if="user.id !== 'lpzKk2JucWR1Bqyr3IOWlht8LQ33'">
+                            <template v-if="userFirestore.role !== 'admin'">
                                 <li>
                                     <router-link to="/contacto">Contacto</router-link>
                                 </li>

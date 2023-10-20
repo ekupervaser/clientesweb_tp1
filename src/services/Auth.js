@@ -5,6 +5,7 @@ import { createUserProfile } from './user.js';
 let userData = {
   id: null,
   email: null,
+  role: null,
 }
 
 let observers = [];
@@ -29,19 +30,20 @@ onAuthStateChanged(auth, user => {
 /**
  * Función para registrarse
  * 
- * @param {{email: string, password: string}} user
+ * @param {{email: string, password: string, role: string}} user
  * @return {Promise}
  */
-export async function register({email, password}) {
+export async function register({email, password, role}) {
   try {
     const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
 
      // Función para crear el usuario en Firestore
-    createUserProfile(userCredentials.user.uid, {email});
+    createUserProfile(userCredentials.user.uid, {email, role});
 
     return {
       id: userCredentials.user.uid,
       email: userCredentials.user.email,
+      role: userCredentials.role,
     }
   } catch (error) {
     return {
@@ -80,6 +82,7 @@ export function logout () {
 
   return signOut(auth);
 }
+
 
 /**
  * 

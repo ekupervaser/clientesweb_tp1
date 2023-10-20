@@ -28,6 +28,7 @@ export async function getUserProfileById(id) {
     return {
         id: docSnapshot.id,
         email: docSnapshot.data().email,
+        role: docSnapshot.data().role,
     }
 }
 
