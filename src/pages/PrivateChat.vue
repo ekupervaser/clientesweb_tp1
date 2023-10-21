@@ -73,7 +73,7 @@ export default {
             <h1 class="text-3xl font-black mb-4 text-center">Conversación con {{ user.email }}</h1>
 
             <h2 class="sr-only">Mensajes</h2>
-            <div class="flex flex-col items-start min-h-[400px] p-4 mb-4 border border-gray-300 rounded">
+            <div class="flex flex-col items-start min-h-[400px] max-w-[800px] mx-auto p-4 mb-4 border border-gray-300 rounded">
                 <Loader v-if="messagesLoading"></Loader>
                 <template v-else>
                     <div v-for="message in messages"
@@ -95,7 +95,7 @@ export default {
 
             <h2 class="sr-only">Enviar mensajes</h2>
             <form 
-            class="flex gap-2"
+            class="flex gap-2 max-w-[800px] mx-auto"
                 action=""
                 @submit.prevent="handleSendMessage" 
                 >
@@ -103,12 +103,10 @@ export default {
                 <label for="message" class="sr-only"></label>
                 <BaseTextarea
                 id="message"
-                class="w-11/12"
+                class="w-10/12"
                 v-model="newMessage.message"
                 />
-
-                <BaseButton class="w-1/12">Enviar</BaseButton>
-
+                <Button class="bg-green-600 rounded text-white w-2/12">Enviar</Button>
             </form>
         </template>
 </template>

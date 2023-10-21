@@ -21,10 +21,16 @@ export default {
 </script>
 
 <template>
-    <h1 class="text-3xl font-black mb-4 text-center">Mi perfil</h1>
+    <div class="flex flex-col items-center">
+        <h1 class="text-3xl font-black mb-4 text-center">Mi perfil</h1>
 
-    <div>
-        <p class="font-bold">Email</p>
-        <p>{{ user.email }}</p>
+        <div>
+            <img src="../../public/user.png" alt="" class="max-w-[150px]">
+        </div>
+
+        <div class="mt-5">
+            <p class="font-bold">Email</p>
+            <p>{{ user.email }}</p>
+        </div>
     </div>
 </template>
