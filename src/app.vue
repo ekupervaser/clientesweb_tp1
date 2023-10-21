@@ -1,5 +1,4 @@
 <script>
-import Chat from './pages/Chat.vue';
 import { logout, subscribeToAuth } from './services/Auth'
 import Home from './pages/Home.vue';
 import Footer from './components/Footer.vue';
@@ -7,7 +6,7 @@ import { getUserProfileById } from './services/user';
 
 export default {
     name: "App",
-    components: { Chat, Home, Footer },
+    components: { Home, Footer },
     data() {
         return {
             user: {
