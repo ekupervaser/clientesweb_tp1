@@ -3,6 +3,13 @@ import {addDoc, collection, onSnapshot, query, doc, deleteDoc} from "firebase/fi
 
 const refCursos = collection(db, 'cursos');
 
+
+/**
+ * Función para crear un nuevo curso
+ * 
+ * @param {Object} data 
+ * @returns {Promise<DocumentReference>}
+ */
 export function SaveNewCourse(data) {
 
     return addDoc(refCursos, {
@@ -11,9 +18,10 @@ export function SaveNewCourse(data) {
 }
 
 /**
+ * Función para obtener los cursos
  * 
  * @param {() => {}} callback 
- * @returns  {import('firebase/auth').Unsubscribe}
+ * @returns {import('firebase/auth').Unsubscribe}
  */
 export function getCourses(callback) {
 
@@ -33,19 +41,11 @@ export function getCourses(callback) {
     });
 }
 
-
-export async function updateCourse(courseId) {
-    const courseRef = doc(db, "cursos", courseId);
-
-    updateDoc(courseRef, this.nuevosDatos)
-      .then(() => {
-        console.log("Documento actualizado con éxito.");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    }
-
+/**
+ * Función para eliminar un curso
+ * 
+ * @param {courseId: string} data 
+ */
 
 export async function deleteCourse(courseId) {
     const courseRef = doc(db, "cursos", courseId); 

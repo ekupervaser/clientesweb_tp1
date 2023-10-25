@@ -1,8 +1,14 @@
 import {db} from './firebase.js';
-import {addDoc, collection, onSnapshot, serverTimestamp, query, orderBy} from "firebase/firestore";
+import {collection, onSnapshot, query} from "firebase/firestore";
 
 const refCursos = collection(db, 'cursos');
 
+/**
+ * Función para obtener el listado de cursos
+ * 
+ * @param {() => {}} callback 
+ * @returns {import('firebase/auth').Unsubscribe}
+ */
 export function importCursos(callback) {
 
     const q = query(refCursos);

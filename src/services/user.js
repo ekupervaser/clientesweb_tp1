@@ -1,6 +1,8 @@
 import { doc, getDoc, serverTimestamp, setDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
+
 /**
+ * Función para obtener el listado de usuarios registrados
  * 
  * @param {string} id 
  * @returns {Promise<{id: string, email: string}>}
@@ -21,6 +23,14 @@ export async function getUsers() {
     return userList;
 }
 
+
+/**
+ * Función para obtener un usuario por id
+ * 
+ * @param {id} data 
+ * @returns {Object}
+ */
+
 export async function getUserProfileById(id) {
     const refUser = doc(db, `users/${id}`);
     const docSnapshot = await getDoc(refUser);
@@ -34,6 +44,7 @@ export async function getUserProfileById(id) {
 
 
 /**
+ * Función para crear el perfil de un usuario en Firestore
  * 
  * @param {string} id 
  * @param {{email: string}} data 

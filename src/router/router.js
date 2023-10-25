@@ -1,7 +1,6 @@
 
 import Home from './../pages/Home.vue'
 import MyProfile from './../pages/MyProfile.vue'
-import UserProfile from './../pages/UserProfile.vue'
 import PrivateChat from './../pages/PrivateChat.vue'
 import Register from './../pages/Register.vue'
 import Login from './../pages/Login.vue'
@@ -16,7 +15,6 @@ import { subscribeToAuth } from '../services/Auth'
 const routes = [
     {path: '/',                 component: Home},
     {path: '/perfil',           component: MyProfile,      meta: { requiresAuth: true }, },
-    {path: '/usuario/:id',      component: UserProfile,    meta: { requiresAuth: true }, },
     {path: '/usuario/:id/chat', component: PrivateChat,    meta: { requiresAuth: true }, },
     {path: '/panel',            component: Panel,          meta: { requiresAuth: true }, },
     {path: '/cargar-curso',     component: NewCourse,      meta: { requiresAuth: true }, },

@@ -4,6 +4,7 @@ import { db } from "./firebase";
 const privateChatRefCache = {};
 
 /**
+ * Función para guardar un nuevo chat privado
  * 
  * @param {{senderId: string, receiverId: string, message: string}} data 
  * @returns {Promise}
@@ -24,6 +25,7 @@ export async function sendPrivateChatMessage({senderId, receiverId, message}) {
 
 
 /**
+ * Función para obtener un chat privado
  * 
  * @param {{senderId: string, receiverId: string}} users
  * @returns {Promise<DocumentReference>}
@@ -66,6 +68,7 @@ async function getPrivateChatDoc({senderId, receiverId}) {
 
 
 /**
+ * Función para suscribirse a un chat privado
  * 
  * @param {{senderId: string, receiverId: string}} users 
  * @param {({}[]}) => void} callback 

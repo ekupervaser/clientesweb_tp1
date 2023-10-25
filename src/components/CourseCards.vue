@@ -26,7 +26,7 @@ export default {
 <div class="container flex flex-col">
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-3">
-            <div v-if="!isLoading" class="bg-white rounded-lg shadow-md w-full px-4 mb-4 flex flex-col justify-between p-4" v-for="course in courses"
+            <div v-if="!isLoading" class="rounded-lg shadow-md w-full px-4 mb-4 flex flex-col justify-between p-4 bg-[#FFEAFF]" v-for="course in courses"
             key="course.id"
             >
             <div>

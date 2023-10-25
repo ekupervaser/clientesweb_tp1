@@ -75,6 +75,7 @@ export function login({email, password}) {
 }
 
 /**
+ * Función para salir de la sesión
  * 
  * @returns {Promise}
  */
@@ -85,9 +86,10 @@ export function logout () {
 
 
 /**
+ * Función para cancelar la suscripción
  * 
  * @param {({id: null|string, email: null|string}) => void} observer 
- * @returns {() => void} Función para cancelar la suscripción
+ * @returns {() => void} 
  */
 export function subscribeToAuth(observer) {
   observers.push(observer);

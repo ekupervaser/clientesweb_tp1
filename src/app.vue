@@ -35,7 +35,7 @@ export default {
 
     <header>
         <div class="bg-black text-white">
-            <div class="container m-auto flex gap-4 items-center p-4">
+            <div class="container m-auto flex justify-between gap-4 items-center p-4">
                 <div>
                     <img src="../../favicon-32x32.png" alt="">
                 </div>
