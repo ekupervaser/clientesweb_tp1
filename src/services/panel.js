@@ -3,7 +3,6 @@ import {addDoc, collection, onSnapshot, query, doc, deleteDoc} from "firebase/fi
 
 const refCursos = collection(db, 'cursos');
 
-
 /**
  * Función para crear un nuevo curso
  * 

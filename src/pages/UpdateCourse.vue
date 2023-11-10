@@ -1,13 +1,13 @@
 <script>
-    import { updateCourse } from '../services/panel';
-    import BaseButton from '../components/BaseButton.vue';
-    import BaseInput from '../components/BaseInput.vue';
-    import BaseLabel from '../components/BaseLabel.vue';
-    import BaseTextarea from '../components/BaseTextarea.vue';
+import { updateCourse } from '../services/panel';
+import BaseButton from '../components/BaseButton.vue';
+import BaseInput from '../components/BaseInput.vue';
+import BaseLabel from '../components/BaseLabel.vue';
+import BaseTextarea from '../components/BaseTextarea.vue';
 
-    export default {
-        name: 'updateCourse',
-    }
+export default {
+    name: 'updateCourse',
+}
 </script>
 
 <template>

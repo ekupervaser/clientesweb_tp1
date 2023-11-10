@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 import BaseButton from '../components/BaseButton.vue';
 import BaseLabel from '../components/BaseLabel.vue';
 import BaseInput from '../components/BaseInput.vue';
@@ -7,7 +7,7 @@ import { login } from '../services/Auth';
 export default {
     name: 'Login',
     components: { BaseButton, BaseLabel, BaseInput },
-    emits: ['logged'],
+/*     emits: ['logged'], */
     data() {
         return {
             isLoading: false,
@@ -34,6 +34,38 @@ export default {
         }
     }
 }
+</script> -->
+
+<script setup>
+import BaseButton from '../components/BaseButton.vue';
+import BaseLabel from '../components/BaseLabel.vue';
+import BaseInput from '../components/BaseInput.vue';
+import { login } from '../services/Auth';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const loginLoading = ref(false);
+const form = ref({
+    email: '',
+    password: '',
+});
+
+const doLogin = async () => {
+    try {
+        loginLoading.value = true;
+        await login({
+            ...form.value,
+        });
+
+        router.push('/');
+    } catch (error) {
+        // Manejar el mensaje de error
+    }
+    loginLoading.value = false;
+}
+
 </script>
 
 <template>
@@ -45,7 +77,7 @@ export default {
             <div>
                 <BaseLabel for="email">Email</BaseLabel>
                 <BaseInput
-                :disabled="isLoading"
+                :disabled="loginLoading"
                 type="email" 
                 id="email"
                 v-model="form.email"

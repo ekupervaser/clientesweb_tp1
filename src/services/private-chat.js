@@ -23,7 +23,6 @@ export async function sendPrivateChatMessage({senderId, receiverId, message}) {
     return true;
 }
 
-
 /**
  * Función para obtener un chat privado
  * 
@@ -65,7 +64,6 @@ async function getPrivateChatDoc({senderId, receiverId}) {
 
     return privateChatDoc;
 }
-
 
 /**
  * Función para suscribirse a un chat privado

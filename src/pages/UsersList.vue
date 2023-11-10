@@ -31,7 +31,6 @@ methods: {
 
 <template>
     <Loader v-if="usersLoading"></Loader>
-
     <template v-else>
         <div class="text-center flex flex-col items-center">
             <h1 class="text-3xl font-black mb-4 text-center">Usuarios</h1>
@@ -44,5 +43,4 @@ methods: {
             </ul>
         </div>
     </template>
-
 </template> 

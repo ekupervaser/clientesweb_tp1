@@ -1,11 +1,11 @@
 import { auth } from "./firebase";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { createUserProfile } from './user.js';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { getUserProfileById, createUserProfile, updateUserProfile } from './user.js';
 
 let userData = {
   id: null,
   email: null,
-  role: null,
+  displayName: null,
 }
 
 let observers = [];
@@ -19,8 +19,9 @@ onAuthStateChanged(auth, user => {
     setUserData({
       id: user.uid,
       email: user.email,
+      displayName: user.displayName,
+      role: user.role,
     });
-    localStorage.setItem('user', JSON.stringify(userData));
   } else {
     clearUserData();
     localStorage.removeItem('user');
@@ -53,7 +54,6 @@ export async function register({email, password, role}) {
   }
 }
 
-
 /**
  * Función para iniciar sesión
  * 
@@ -84,17 +84,52 @@ export function logout () {
   return signOut(auth);
 }
 
+/**
+ * Función para editar el perfil
+ * 
+ * @param {displayName: string|null} displayName 
+ * @returns {Promise}
+ */
+export async function editProfile({displayName}) {
+  try {
+    
+    const promiseAuth = updateProfile(auth.currentUser, {displayName});
+
+    const promiseProfile = updateUserProfile(userData.id, {displayName});
+
+    await Promise.all([promiseAuth, promiseProfile]);
+
+    setUserData({
+      displayName,
+    })
+    
+  } catch (error) {
+    // TO DO
+    throw error;
+  }
+}
 
 /**
  * Función para cancelar la suscripción
  * 
- * @param {({id: null|string, email: null|string}) => void} observer 
+ * @param {({id: null|string, email: null|string, role: null|string, displayName: null|string}) => void} observer 
  * @returns {() => void} 
  */
 export function subscribeToAuth(observer) {
   observers.push(observer);
 
   notify(observer);
+
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      // Usuario autenticado
+        const userProfile = await getUserProfileById(user.uid);
+        observer(userProfile);
+    } else {
+        // Usuario no autenticado
+        observer(null);
+    }
+});
 
   return () => {
     observers = observers.filter(obs => obs !== observer);
@@ -111,13 +146,14 @@ function notifyAll () {
 
 /**
  * 
- * @param {{id: null|string, email: null|string}} newData 
+ * @param {{id: null|string, email: null|string, role: null|string, displayName: null|string}} newData 
  */
 function setUserData (newData) {
   userData = {
     ...userData,
     ...newData,
   }
+  localStorage.setItem('user', JSON.stringify(userData));
   notifyAll();
 }
 
@@ -125,6 +161,8 @@ function clearUserData () {
   setUserData({
     id: null,
     email: null,
+    role: null,
+    displayName: null,
 });
 }
 

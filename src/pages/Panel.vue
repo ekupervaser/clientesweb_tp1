@@ -12,9 +12,6 @@ export default {
        }
     },
 }
-    
-
-
 </script>
 
 <template>
