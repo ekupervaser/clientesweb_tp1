@@ -1,20 +1,24 @@
 import { auth } from "./firebase";
+import { ref } from "vue";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { getUserProfileById, createUserProfile, updateUserProfile } from './user.js';
+import { getFileURL, uploadFile } from "./file-storage.js";
 
 let userData = {
   id: null,
   email: null,
+  role: null,
   displayName: null,
 }
 
 let observers = [];
 
+
 if (localStorage.getItem('user')) {
   userData = JSON.parse(localStorage.getItem('user'));
 }
 
-onAuthStateChanged(auth, user => {
+onAuthStateChanged(auth, async user => {
   if (user) {
     setUserData({
       id: user.uid,
@@ -22,6 +26,11 @@ onAuthStateChanged(auth, user => {
       displayName: user.displayName,
       role: user.role,
     });
+
+    const fullData = await getUserProfileById(user.uid);
+    setUserData({
+      role: fullData.role,
+    })
   } else {
     clearUserData();
     localStorage.removeItem('user');
@@ -63,7 +72,6 @@ export async function register({email, password, role}) {
 export function login({email, password}) {
     return signInWithEmailAndPassword(auth, email, password)
         .then(userCredentials => {
-          console.log("Sesión iniciada", userCredentials);
           return userData;
         })
         .catch(error => {
@@ -107,6 +115,19 @@ export async function editProfile({displayName}) {
     // TO DO
     throw error;
   }
+}
+
+/**
+ * Función para subir la foto de un usuario a Firestore
+ * 
+ * @param {File} file
+ * @returns {Promise} 
+ */
+export async function editProfilePhoto(file) {
+  const path = `users/${userData.id}/photo`;
+  await uploadFile(path, file);
+
+  const photoURL = await getFileURL(path);
 }
 
 /**
@@ -163,7 +184,9 @@ function clearUserData () {
     email: null,
     role: null,
     displayName: null,
+
 });
+localStorage.removeItem('user');
 }
 
 export function getUserData () {

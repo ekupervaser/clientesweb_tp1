@@ -3,31 +3,23 @@ import { subscribeToAuth } from './../services/auth';
 import { getUserProfileById } from '../services/user';
 
 export function useAuth() {
+    const userLoading = ref(true);
     const user = ref({
         id: null,
         email: null,
         displayName: null,
         role: null,
     });
-    const loading = ref(true);
     let unsubscribeAuth;
 
     onMounted(() => {
         unsubscribeAuth = subscribeToAuth(async (newUser) => {
             if (newUser) {
-                // Si hay un usuario autenticado, obtén información adicional desde Firestore
+                userLoading.value = true;
                 const userProfile = await getUserProfileById(newUser.id);
                 user.value = { ...userProfile };
-            } else {
-                // Usuario no autenticado, restablece los valores
-                user.value = {
-                    id: null,
-                    email: null,
-                    displayName: null,
-                    role: null,
-                };
+                userLoading.value = false;
             }
-            loading.value = false;
         });
     });
 
@@ -35,6 +27,6 @@ export function useAuth() {
 
     return {
         user,
-        loading,
+        userLoading
     }
 }
