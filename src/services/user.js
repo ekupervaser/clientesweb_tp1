@@ -39,6 +39,7 @@ export async function getUserProfileById(id) {
         email: docSnapshot.data().email,
         role: docSnapshot.data().role,
         displayName: docSnapshot.data().displayName,
+        photoURL: docSnapshot.data().photoURL,
     }
 }
 
@@ -55,9 +56,10 @@ export async function createUserProfile(id, data) {
 }
 
 /**
+ * Función para actualizar los datos del perfil de un usuario en Firestore
  * 
  * @param {string} id 
- * @param {{displayName: string|null}} data 
+ * @param {{displayName: string|null, photoURL: string|null}} data 
  * @returns {Promise}
  */
 export async function updateUserProfile(id, data) {

@@ -126,28 +126,31 @@ function useProfileEdit(user) {
         <div class="flex flex-col items-center">
             <h1 class="text-3xl font-black mb-4 text-center">Mi perfil</h1>
 
-            <template v-if="!editing && !editingPhoto">
-                <div>
-                    <img src="../../public/user.png" alt="" class="max-w-[150px]">
-                </div>
-                <div class="mt-5">
-                    <p class="font-bold">Email</p>
-                    <p class="mb-2">{{ user.email }}</p>
-                    <p class="font-bold">Nombre</p>
-                    <p class="mb-2">{{ user.displayName || 'No especificado' }}</p>
-                    <p class="font-bold">Rol</p>
-                    <p>{{ user.role || 'Usuario estándar' }}</p>
-                </div>
+            <template class="flex" v-if="!editing && !editingPhoto">
+                <template class="flex items-center">
+                    <div class="flex flex-col items-center">
+                        <img v-if="user.photoURL" :src="user.photoURL" alt="Foto del perfil" class="w-[150px] h-[150px] rounded-full mr-10">
+                        <img v-else src="../../public/user.png" alt="Foto del perfil" class="w-[150px] h-[150px] rounded-full mr-10">
+                        <button 
+                            class="mr-10 -mt-8 bg-white p-1 rounded-2xl"
+                            @click="handlePhotoFormShow"
+                            >Cargar
+                        </button>
+                    </div>
+                    <div class="mt-5">
+                        <p class="font-bold">Email</p>
+                        <p class="mb-2">{{ user.email }}</p>
+                        <p class="font-bold">Nombre</p>
+                        <p class="mb-2">{{ user.displayName || 'No especificado' }}</p>
+                        <p class="font-bold">Rol</p>
+                        <p>{{ user.role || 'Usuario estándar' }}</p>
+                    </div>
+                </template>
                 
                 <div class="mt-3" style="max-width: 250px;">
                 <BaseButton
                 @click="handleEditShow"
                 >Editar mis datos</BaseButton>
-
-                <BaseButton
-                @click="handlePhotoFormShow"
-                >Editar mi imagen de perfil</BaseButton>
-
             </div>
 
             </template>

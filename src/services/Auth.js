@@ -9,6 +9,7 @@ let userData = {
   email: null,
   role: null,
   displayName: null,
+  photoURL: null,
 }
 
 let observers = [];
@@ -25,6 +26,7 @@ onAuthStateChanged(auth, async user => {
       email: user.email,
       displayName: user.displayName,
       role: user.role,
+      photoURL: user.photoURL,
     });
 
     const fullData = await getUserProfileById(user.uid);
@@ -95,21 +97,27 @@ export function logout () {
 /**
  * Función para editar el perfil
  * 
- * @param {displayName: string|null} displayName 
+ * @param {displayName: string|null, photoURL: string|null} data 
  * @returns {Promise}
  */
-export async function editProfile({displayName}) {
+export async function editProfile({displayName, photoURL}) {
   try {
-    
-    const promiseAuth = updateProfile(auth.currentUser, {displayName});
 
-    const promiseProfile = updateUserProfile(userData.id, {displayName});
+    const data = {};
+
+    if(displayName !== undefined) {
+      data.displayName = displayName;
+    } else if (photoURL !== undefined) {
+      data.photoURL = photoURL
+    };
+    
+    const promiseAuth = updateProfile(auth.currentUser, data);
+
+    const promiseProfile = updateUserProfile(userData.id, data);
 
     await Promise.all([promiseAuth, promiseProfile]);
 
-    setUserData({
-      displayName,
-    })
+    setUserData(data);
     
   } catch (error) {
     // TO DO
@@ -128,6 +136,10 @@ export async function editProfilePhoto(file) {
   await uploadFile(path, file);
 
   const photoURL = await getFileURL(path);
+
+  return editProfile({
+    photoURL,
+  });
 }
 
 /**
@@ -184,6 +196,7 @@ function clearUserData () {
     email: null,
     role: null,
     displayName: null,
+    photoURL: null,
 
 });
 localStorage.removeItem('user');

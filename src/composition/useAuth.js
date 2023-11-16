@@ -9,6 +9,7 @@ export function useAuth() {
         email: null,
         displayName: null,
         role: null,
+        photoURL: null,
     });
     let unsubscribeAuth;
 
