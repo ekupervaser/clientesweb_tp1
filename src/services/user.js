@@ -40,6 +40,7 @@ export async function getUserProfileById(id) {
         role: docSnapshot.data().role,
         displayName: docSnapshot.data().displayName,
         photoURL: docSnapshot.data().photoURL,
+        coursesPurchased: docSnapshot.data().coursesPurchased,
     }
 }
 

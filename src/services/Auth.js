@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { getUserProfileById, createUserProfile, updateUserProfile } from './user.js';
 import { getFileURL, uploadFile } from "./file-storage.js";
+import { getCourseById } from "./courses.js";
 
 let userData = {
   id: null,
@@ -158,6 +159,12 @@ export function subscribeToAuth(observer) {
       // Usuario autenticado
         const userProfile = await getUserProfileById(user.uid);
         observer(userProfile);
+
+        if (userProfile && userProfile.courses) {
+          const courses = await Promise.all(userProfile.courses.map(courseId => getCourseById(courseId)));
+          observer({ ...userProfile, courses });
+        }
+
     } else {
         // Usuario no autenticado
         observer(null);

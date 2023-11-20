@@ -130,7 +130,7 @@ function useProfileEdit(user) {
                 <template class="flex items-center">
                     <div class="flex flex-col items-center">
                         <img v-if="user.photoURL" :src="user.photoURL" alt="Foto del perfil" class="w-[150px] h-[150px] rounded-full mr-10">
-                        <img v-else src="../../public/user.png" alt="Foto del perfil" class="w-[150px] h-[150px] rounded-full mr-10">
+                        <img v-else src="public/user.png" alt="Sin foto del perfil" class="w-[150px] h-[150px] rounded-full mr-10">
                         <button 
                             class="mr-10 -mt-8 bg-white p-1 rounded-2xl"
                             @click="handlePhotoFormShow"
@@ -152,7 +152,6 @@ function useProfileEdit(user) {
                 @click="handleEditShow"
                 >Editar mis datos</BaseButton>
             </div>
-
             </template>
 
             <template v-else-if="editing">
