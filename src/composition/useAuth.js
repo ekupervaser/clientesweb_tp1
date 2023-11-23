@@ -20,6 +20,8 @@ export function useAuth() {
                 const userProfile = await getUserProfileById(newUser.id);
                 user.value = { ...userProfile };
                 userLoading.value = false;
+            } else {
+                user = null;
             }
         });
     });

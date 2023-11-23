@@ -13,13 +13,10 @@ export default {
      <p class="mb-3 mt-2 w-3/4 text-center mx-auto">Ya sea que estés buscando mejorar tus habilidades profesionales, explorar nuevos intereses o avanzar en tu carrera, en iLearn tenemos la experiencia y el conocimiento para guiarte.</p>
 
      <div class="flex justify-center">
-          <button class="my-3 py-2 px-3 rounded w-3/5 md:w-1/5 mx-auto bg-[#BE4EFF] text-white hover:bg-[#EE7BFF] disabled:bg-grey-400 active:bg-[#DF6DFF] transition">
-               <router-link
-               :to="`/cursos`"
-               >Ver cursos
-          </router-link>
-          </button>
-     </div>
+      <router-link :to="'/cursos'" class="my-3 py-2 px-3 rounded mx-auto bg-[#BE4EFF] text-white hover:bg-[#EE7BFF] disabled:bg-grey-400 active:bg-[#DF6DFF] transition">
+        Ver cursos
+      </router-link>
+    </div>
 
      <div class="container">
           <img src="/banner.jpg" alt="Banner">

@@ -159,6 +159,9 @@ export function subscribeToAuth(observer) {
   auth.onAuthStateChanged(async (user) => {
     if (user) {
       // Usuario autenticado
+
+      try {
+
         const userProfile = await getUserProfileById(user.uid);
         observer(userProfile);
 
@@ -167,8 +170,14 @@ export function subscribeToAuth(observer) {
           observer({ ...userProfile, coursesPurchased });
         }
 
+      } catch (error) {
+        console.log('Error al obtener el perfil del usuario: ', error);
+      }
+       
+
     } else {
         // Usuario no autenticado
+        clearUserData();
         observer(null);
     }
 });

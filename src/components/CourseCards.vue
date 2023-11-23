@@ -9,29 +9,31 @@ import Loader from './Loader.vue';
 /* import { purchaseCourse } from '../services/user'; */
 
 const { user } = useAuth();
+
 const isLoading = ref(true);    
 const courses = ref([]);
 
 onMounted(async () => {
   isLoading.value = true;
-  await loadUserData();
 
-  importCursos(async (data) => {
-    const userCourses = user.value?.courses || [];
-    const userProfile = await getUserProfileById(user.value.id);
-    const userPurchasedCourses = userProfile.coursesPurchased || [];
+    await loadUserData();
 
-    courses.value = data.map(course => {
-      const isPurchased = userCourses.some(userCourseId => userCourseId === course.id) ||
-                          userPurchasedCourses.includes(course.id);
+    importCursos(async (data) => {
+      const userCourses = user.value?.courses || [];
+      const userProfile = await getUserProfileById(user.value.id);
+      const userPurchasedCourses = userProfile.coursesPurchased || [];
 
-      return {
-        ...course,
-        isPurchased
-      };
+      courses.value = data.map(course => {
+        const isPurchased = userCourses.some(userCourseId => userCourseId === course.id) ||
+                            userPurchasedCourses.includes(course.id);
+
+        return {
+          ...course,
+          isPurchased
+        };
+      });
+      isLoading.value = false;
     });
-    isLoading.value = false;
-  });
 });
 
 async function loadUserData() {
@@ -41,16 +43,17 @@ async function loadUserData() {
 
     if (userDocSnapshot.exists()) {
       const userData = userDocSnapshot.data();
-      userCourses.value = userData.courses || [];
+      user.value.courses = userData.courses || [];
     }
   }
 }
 
 async function purchaseCourse(userId, courseId) {
     const userProfile = await getUserProfileById(userId);
-
+    console.log(userId)
     // Verifica si el curso ya ha sido comprado
     if (!userProfile.coursesPurchased || !userProfile.coursesPurchased.includes(courseId)) {
+      console.log(userId)
       const userRef = doc(db, `users/${userId}`);
       await updateDoc(userRef, {
         coursesPurchased: arrayUnion(courseId),
@@ -69,7 +72,7 @@ async function purchaseCourse(userId, courseId) {
 <template>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <div v-if="!isLoading" v-for="course in courses" :key="course.id">
-        <div class="bg-white p-6 rounded-md shadow-md mb-4 flex flex-col justify-between h-full bg-[#f1d6f1b7]">
+        <div class="bg-white p-6 rounded-md shadow-md mb-4 flex flex-col justify-between h-full bg-[#ebc5eb86]">
           <div>
             <h2 class="text-xl font-bold mb-2">{{ course.name }}</h2>
             <p class="text-gray-600">{{ course.description }}</p>
@@ -84,15 +87,17 @@ async function purchaseCourse(userId, courseId) {
             </button>
             <button v-else 
             :disabled="course.isPurchased"
-            :class="{ 'bg-gray-300': course.isPurchased, 'cursor-default': course.isPurchased }"
+            :class="{ 'bg-gray-300': course.isPurchased, 'cursor-de fault': course.isPurchased }"
             class="mt-2 bg-blue-500 text-white px-4 py-2 rounded cursor-pointer">
                 Comprado
             </button>
           </div>
+<!--           <div v-else>
+            <router-link :to="'/login'" class="my-3 py-2 px-3 rounded mx-auto bg-[#BE4EFF] text-white hover:bg-[#EE7BFF] disabled:bg-grey-400 active:bg-[#DF6DFF] transition">
+              Comprar
+            </router-link> -->
+          </div>
         </div>
+        <div v-else><Loader></Loader></div>
       </div>
-      <div v-else>
-        <Loader></Loader>
-      </div>
-    </div>
   </template>

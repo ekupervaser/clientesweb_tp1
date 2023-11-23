@@ -48,13 +48,13 @@ const doLogin = async () => {
             <div>
                 <BaseLabel for="password">Contraseña</BaseLabel>
                 <BaseInput 
-                :disabled="isLoading"
+                :disabled="loginLoading"
                 type="password" 
                 id="password"
                 v-model="form.password"
                 />
             </div>
-            <BaseButton :loading="isLoading">Iniciar sesión</BaseButton>
+            <BaseButton :loading="loginLoading">Iniciar sesión</BaseButton>
         </form>
      </div>
 </template>

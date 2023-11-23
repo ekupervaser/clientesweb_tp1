@@ -17,9 +17,11 @@ export default {
         }
     },
     methods: {
-        handleLogout () {
-            logout();
-            this.$router.push('/login');
+        async handleLogout () {
+             await logout();
+             this.user = {id: null, email:null};
+             this.userFirestore = {};
+             this.$router.push('/login');
         }
     },
     mounted() {
@@ -44,9 +46,6 @@ export default {
                         <li>
                             <router-link to="/">Home</router-link>
                         </li>
-                        <li>
-                            <router-link to="/cursos">Cursos</router-link>
-                        </li>
                         <template v-if="user.id === null">
                             <li>
                                 <router-link to="/registro">Registro</router-link>
@@ -70,6 +69,9 @@ export default {
                                 </li>
                             </template>
                             <template v-if="userFirestore.role !== 'admin'">
+                                <li>
+                                    <router-link to="/cursos">Cursos</router-link>
+                                </li>
                                 <li>
                                     <router-link to="/contacto">Contacto</router-link>
                                 </li>
