@@ -5,6 +5,7 @@ import { importCursos } from '../services/courses';
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '../services/firebase';
 import { getUserProfileById } from '../services/user';
+import Loader from './Loader.vue';
 /* import { purchaseCourse } from '../services/user'; */
 
 const { user } = useAuth();
@@ -68,7 +69,7 @@ async function purchaseCourse(userId, courseId) {
 <template>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <div v-if="!isLoading" v-for="course in courses" :key="course.id">
-        <div class="bg-white p-6 rounded-md shadow-md mb-4 flex flex-col justify-between h-full bg-[#f1d6f1a8]">
+        <div class="bg-white p-6 rounded-md shadow-md mb-4 flex flex-col justify-between h-full bg-[#f1d6f1b7]">
           <div>
             <h2 class="text-xl font-bold mb-2">{{ course.name }}</h2>
             <p class="text-gray-600">{{ course.description }}</p>

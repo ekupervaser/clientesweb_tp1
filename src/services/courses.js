@@ -1,5 +1,5 @@
 import {db} from './firebase.js';
-import {collection, onSnapshot, query} from "firebase/firestore";
+import {doc, getDoc, collection, onSnapshot, query} from "firebase/firestore";
 
 const refCursos = collection(db, 'cursos');
 

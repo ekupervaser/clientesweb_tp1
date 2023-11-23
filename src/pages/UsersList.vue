@@ -30,17 +30,33 @@ methods: {
 </script>
 
 <template>
-    <Loader v-if="usersLoading"></Loader>
-    <template v-else>
-        <div class="text-center flex flex-col items-center">
-            <h1 class="text-3xl font-black mb-4 text-center">Usuarios</h1>
-            <p class="mb-2">Listado de usuarios para contactar vía Chat</p>
-            <ul class="m-0">
-                <li v-for="user in userList"
-                class="bg-gray-300 px-10 py-2 my-1 mx-0 rounded">
-                    <router-link :to="`/usuario/${user.id}/chat`" class=" ml-1 text-black-600 underline">{{ user.email }}</router-link>
-                </li>
-            </ul>
-        </div>
-    </template>
-</template> 
+  <Loader v-if="usersLoading"></Loader>
+  <template v-else>
+    <div class="text-center">
+      <h1 class="text-3xl font-black mb-4">Usuarios</h1>
+      <p class="mb-2">Listado de usuarios</p>
+
+      <table class="min-w-full border border-gray-300">
+        <thead>
+          <tr>
+            <th class="border border-gray-300 px-4 py-2">Email</th>
+            <th class="border border-gray-300 px-4 py-2">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="user in userList" :key="user.id">
+            <td class="border border-gray-300 px-4 py-2">{{ user.email }}</td>
+            <td class="border border-gray-300 px-4 py-2">
+              <router-link :to="`/usuario/${user.id}/chat`" class="text-blue-600 underline mr-2">
+                Chatear
+              </router-link>
+              <router-link :to="`/usuario/${user.id}/cursos`" class="text-green-600 underline">
+                Ver cursos
+              </router-link>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </template>
+</template>

@@ -127,15 +127,18 @@ function useProfileEdit(user) {
             <h1 class="text-3xl font-black mb-4 text-center">Mi perfil</h1>
 
             <template class="flex" v-if="!editing && !editingPhoto">
-                <template class="flex items-center">
+                <template class="flex flex-col items-center">
                     <div class="flex flex-col items-center">
-                        <img v-if="user.photoURL" :src="user.photoURL" alt="Foto del perfil" class="w-[150px] h-[150px] rounded-full mr-10">
-                        <img v-else src="public/user.png" alt="Sin foto del perfil" class="w-[150px] h-[150px] rounded-full mr-10">
-                        <button 
-                            class="mr-10 -mt-8 bg-white p-1 rounded-2xl"
+                      
+                        <img v-if="user.photoURL" :src="user.photoURL" alt="Foto del perfil" class="w-[150px] h-[150px] rounded-full" style="object-fit: cover;">
+                        <img v-else src="public/user.png" alt="Sin foto del perfil" class="w-[150px] h-[150px] rounded-full" style="object-fit: cover;">
+                        <button
+                            class="bg-white p-1 rounded-full -mt-8"
                             @click="handlePhotoFormShow"
-                            >Cargar
+                            >
+                            {{user.photoURL ? 'Actualizar' : 'Cargar'}}
                         </button>
+     
                     </div>
                     <div class="mt-5">
                         <p class="font-bold">Email</p>
@@ -144,14 +147,11 @@ function useProfileEdit(user) {
                         <p class="mb-2">{{ user.displayName || 'No especificado' }}</p>
                         <p class="font-bold">Rol</p>
                         <p>{{ user.role || 'Usuario estándar' }}</p>
+                        <BaseButton
+                        @click="handleEditShow"
+                        >Editar mis datos</BaseButton>
                     </div>
                 </template>
-                
-                <div class="mt-3" style="max-width: 250px;">
-                <BaseButton
-                @click="handleEditShow"
-                >Editar mis datos</BaseButton>
-            </div>
             </template>
 
             <template v-else-if="editing">

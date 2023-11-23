@@ -70,6 +70,7 @@ export default {
 <template>
       <Loader v-if="userLoading"></Loader>
         <template v-else>
+
             <h1 class="text-3xl font-black mb-4 text-center">Conversación con {{ user.email }}</h1>
 
             <h2 class="sr-only">Mensajes</h2>

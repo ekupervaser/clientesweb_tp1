@@ -1,10 +1,10 @@
 <script>
+import BaseButton from '../components/BaseButton.vue';
 import CoursePanel from '../components/CoursePanel.vue';
-import { subscribeToAuth } from "../services/Auth";
 
 export default {
     name: 'Panel',
-    components: { CoursePanel },
+    components: { CoursePanel, BaseButton },
     data() {
         return {
             isLoading: true, 
@@ -17,11 +17,12 @@ export default {
 <template>
     <div class="max-w-screen-sm flex flex-col justify-center m-auto">
         <h1 class="text-3xl font-black mb-4 text-center">Panel de administración</h1>
-        <p class="font-black mb-4 text-center">¡Agrega y elimina los cursos cuando desees!</p>
 
-    </div>
-        <CoursePanel></CoursePanel>
-    <div class="flex">
-        <router-link class="my-5 py-3 px-3 rounded w-full text-center bg-blue-700 text-white hover:bg-blue-600 disabled:bg-blue-400 active:bg-blue-800 transition" :to="`/cargar-curso`">Cargar nuevo curso</router-link>
+        <div class="m-auto">
+            <router-link class="bg-slate-300 p-3 rounded-lg m-3" :to="`/admin-cursos`">Administrar cursos</router-link>
+
+            <button class="bg-slate-300 p-3 rounded-lg m-3">Ver cursos por usuario</button>
+        </div>
+
     </div>
 </template>

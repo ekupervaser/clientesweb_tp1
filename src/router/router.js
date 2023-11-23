@@ -9,20 +9,24 @@ import NewCourse from './../pages/NewCourse.vue'
 import Courses from './../pages/Courses.vue'
 import Contact from './../pages/Contact.vue'
 import UsersList from './../pages/UsersList.vue'
+import CourseAdmin from './../pages/CourseAdmin.vue'
+import UserCourses from './../pages/UserCourses.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { subscribeToAuth } from '../services/Auth'
 
 const routes = [
-    {path: '/',                 component: Home},
-    {path: '/perfil',           component: MyProfile,      meta: { requiresAuth: true }, },
-    {path: '/usuario/:id/chat', component: PrivateChat,    meta: { requiresAuth: true }, },
-    {path: '/panel',            component: Panel,          meta: { requiresAuth: true }, },
-    {path: '/cargar-curso',     component: NewCourse,      meta: { requiresAuth: true }, },
-    {path: '/contacto',         component: Contact,        meta: { requiresAuth: true }, },
-    {path: '/usuarios',         component: UsersList,      meta: { requiresAuth: true }, },
-    {path: '/cursos',           component: Courses},
-    {path: '/registro',         component: Register},
-    {path: '/login',            component: Login},
+    {path: '/',                   component: Home},
+    {path: '/perfil',             component: MyProfile,      meta: { requiresAuth: true }, },
+    {path: '/usuario/:id/chat',   component: PrivateChat,    meta: { requiresAuth: true }, },
+    {path: '/usuario/:id/cursos', component: UserCourses,    meta: { requiresAuth: true }, },
+    {path: '/panel',              component: Panel,          meta: { requiresAuth: true }, },
+    {path: '/admin-cursos',       component: CourseAdmin,    meta: { requiresAuth: true }, },
+    {path: '/cargar-curso',       component: NewCourse,      meta: { requiresAuth: true }, },
+    {path: '/contacto',           component: Contact,        meta: { requiresAuth: true }, },
+    {path: '/usuarios',           component: UsersList,      meta: { requiresAuth: true }, },
+    {path: '/cursos',             component: Courses},
+    {path: '/registro',           component: Register},
+    {path: '/login',              component: Login},
 
 ];
 

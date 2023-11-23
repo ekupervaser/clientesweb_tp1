@@ -11,6 +11,7 @@ let userData = {
   role: null,
   displayName: null,
   photoURL: null,
+  coursesPurchased: [],
 }
 
 let observers = [];
@@ -28,6 +29,7 @@ onAuthStateChanged(auth, async user => {
       displayName: user.displayName,
       role: user.role,
       photoURL: user.photoURL,
+      coursesPurchased: user.coursesPurchased,
     });
 
     const fullData = await getUserProfileById(user.uid);
@@ -160,9 +162,9 @@ export function subscribeToAuth(observer) {
         const userProfile = await getUserProfileById(user.uid);
         observer(userProfile);
 
-        if (userProfile && userProfile.courses) {
-          const courses = await Promise.all(userProfile.courses.map(courseId => getCourseById(courseId)));
-          observer({ ...userProfile, courses });
+        if (userProfile && userProfile.coursesPurchased) {
+          const coursesPurchased = await Promise.all(userProfile.coursesPurchased.map(courseId => getCourseById(courseId)));
+          observer({ ...userProfile, coursesPurchased });
         }
 
     } else {
@@ -204,6 +206,7 @@ function clearUserData () {
     role: null,
     displayName: null,
     photoURL: null,
+    coursesPurchased: [],
 
 });
 localStorage.removeItem('user');
