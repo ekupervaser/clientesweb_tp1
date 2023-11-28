@@ -52,8 +52,15 @@ export async function getUserProfileById(id) {
  * @returns {promise}
  */
 export async function createUserProfile(id, data) {
-    const refUser = doc(db, `users/${id}`);
-    return setDoc(refUser, {...data, created_at: serverTimestamp()});
+    try {
+        const refUser = doc(db, `users/${id}`);
+        console.log('Usuario creado en Firestore con éxito:', id, data);
+        return setDoc(refUser, {...data, created_at: serverTimestamp()});
+
+    } catch (error) {
+        console.error('Error al crear el usuario en Firestore:', error);
+        throw error;
+    }
 }
 
 /**

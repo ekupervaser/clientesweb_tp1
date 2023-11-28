@@ -53,14 +53,15 @@ export async function register({email, password, role}) {
     const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
 
      // Función para crear el usuario en Firestore
-    createUserProfile(userCredentials.user.uid, {email, role});
+    await createUserProfile(userCredentials.user.uid, {email});
 
     return {
       id: userCredentials.user.uid,
       email: userCredentials.user.email,
-      role: userCredentials.role,
+      role: 'user',
     }
   } catch (error) {
+    // Manejo del error
     return {
       code: error.code,
       message: error.message,
@@ -77,14 +78,22 @@ export async function register({email, password, role}) {
 export function login({email, password}) {
     return signInWithEmailAndPassword(auth, email, password)
         .then(userCredentials => {
+          userData = {
+            id: userCredentials.user.uid,
+            email: userCredentials.user.email,
+            displayName: userCredentials.user.displayName,
+            role: userCredentials.role,
+            photoURL: userCredentials.user.photoURL,
+            coursesPurchased: userCredentials.user.coursesPurchased,
+        };
           return userData;
         })
         .catch(error => {
-            return {
+          throw {
             code: error.code,
             message: error.message,
-            }
-        });
+          };
+      });
 }
 
 /**
@@ -223,4 +232,13 @@ localStorage.removeItem('user');
 
 export function getUserData () {
   return {...userData};
+}
+
+/**
+ * Función para verificar si el usuario está autenticado.
+ * @returns {boolean}
+ */
+export function isAuthenticated() {
+  const user = auth.currentUser;
+  return !!user;
 }

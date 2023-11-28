@@ -2,28 +2,37 @@
 import BaseButton from '../components/BaseButton.vue';
 import BaseLabel from '../components/BaseLabel.vue';
 import BaseInput from '../components/BaseInput.vue';
-import { login } from '../services/Auth';
+import { login, isAuthenticated } from '../services/Auth';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
 const loginLoading = ref(false);
+
+let loginErrorMessage = ref(null);
+    
 const form = ref({
     email: '',
     password: '',
 });
 
 const doLogin = async () => {
+
     try {
         loginLoading.value = true;
         await login({
             ...form.value,
         });
 
-        router.push('/');
+        if (await isAuthenticated()) {
+            router.push('/');
+        }
+
     } catch (error) {
-        // Manejar el mensaje de error
+        if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-login-credentials') {
+            loginErrorMessage = 'Credenciales inválidas';
+        }
     }
     loginLoading.value = false;
 }
@@ -37,7 +46,7 @@ const doLogin = async () => {
         @submit.prevent="doLogin"
         >
             <div>
-                <BaseLabel for="email">Email</BaseLabel>
+                <BaseLabel>Email</BaseLabel>
                 <BaseInput
                 :disabled="loginLoading"
                 type="email" 
@@ -46,7 +55,7 @@ const doLogin = async () => {
                 />
             </div>
             <div>
-                <BaseLabel for="password">Contraseña</BaseLabel>
+                <BaseLabel>Contraseña</BaseLabel>
                 <BaseInput 
                 :disabled="loginLoading"
                 type="password" 
@@ -56,5 +65,6 @@ const doLogin = async () => {
             </div>
             <BaseButton :loading="loginLoading">Iniciar sesión</BaseButton>
         </form>
+            <div v-if="loginErrorMessage" class="text-red-500 mt-2">{{ loginErrorMessage }}</div>
      </div>
 </template>
