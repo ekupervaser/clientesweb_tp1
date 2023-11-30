@@ -6,7 +6,6 @@ import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '../services/firebase';
 import { getUserProfileById } from '../services/user';
 import Loader from './Loader.vue';
-/* import { purchaseCourse } from '../services/user'; */
 
 const { user } = useAuth();
 
@@ -50,10 +49,7 @@ async function loadUserData() {
 
 async function purchaseCourse(userId, courseId) {
     const userProfile = await getUserProfileById(userId);
-    console.log(userId)
-    // Verifica si el curso ya ha sido comprado
     if (!userProfile.coursesPurchased || !userProfile.coursesPurchased.includes(courseId)) {
-      console.log(userId)
       const userRef = doc(db, `users/${userId}`);
       await updateDoc(userRef, {
         coursesPurchased: arrayUnion(courseId),

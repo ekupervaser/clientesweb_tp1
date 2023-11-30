@@ -1,4 +1,3 @@
-
 import Home from './../pages/Home.vue'
 import MyProfile from './../pages/MyProfile.vue'
 import PrivateChat from './../pages/PrivateChat.vue'

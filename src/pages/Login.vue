@@ -17,6 +17,7 @@ const form = ref({
     password: '',
 });
 
+
 const doLogin = async () => {
 
     try {
@@ -25,7 +26,7 @@ const doLogin = async () => {
             ...form.value,
         });
 
-        if (await isAuthenticated()) {
+        if (isAuthenticated()) {
             router.push('/');
         }
 

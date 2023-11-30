@@ -180,7 +180,7 @@ export function subscribeToAuth(observer) {
         }
 
       } catch (error) {
-        console.log('Error al obtener el perfil del usuario: ', error);
+
       }
        
 

@@ -46,7 +46,7 @@ export default {
                         <li>
                             <router-link to="/">Home</router-link>
                         </li>
-                        <template v-if="user.id === null">
+                        <template v-if="!user.id">
                             <li>
                                 <router-link to="/registro">Registro</router-link>
                             </li>

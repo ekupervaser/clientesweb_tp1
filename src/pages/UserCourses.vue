@@ -27,7 +27,6 @@ export default {
         const userProfile = await getUserProfileById(userId);
         this.user = { ...userProfile };
       } catch (error) {
-        console.log('Error al obtener el perfil del usuario. Error: ', error);
       }
     },
     async loadCourseData() {
@@ -39,7 +38,7 @@ export default {
             })
           );
       } catch (error) {
-        console.log('Error al cargar los datos de los cursos: ', error);
+
       } 
         this.userLoading = false;
     },

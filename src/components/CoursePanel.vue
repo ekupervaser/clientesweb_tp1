@@ -13,15 +13,10 @@ export default {
     },
     methods: {
     eliminarCurso(cursoId) {
-      // Llamar a la función para eliminar el curso pasando el ID del curso
       deleteCourse(cursoId)
         .then(() => {
-          console.log('Curso eliminado con éxito');
-          // Recargar la lista de cursos si es necesario
-          // Por ejemplo, puedes volver a cargar la lista llamando a importCursos
         })
         .catch((error) => {
-          console.error('Error al eliminar el curso:', error);
         });
     },
   },

@@ -6,8 +6,11 @@ import BaseLabel from '../components/BaseLabel.vue';
 import BaseInput from '../components/BaseInput.vue';
 import { editProfile, editProfilePhoto } from '../services/auth';
 import Loader from '../components/Loader.vue';
+import { useRouter } from 'vue-router';
 
 const { user, userLoading } = useAuth();
+
+const router = useRouter();
 
 const {
     editData,
@@ -51,7 +54,6 @@ function usePhotoEdit() {
         try {
             await editProfilePhoto(photoData.value.file);
         } catch (error) {
-            console.error('Error:', error)
         }
         editingPhotoLoading.value = false;
 
@@ -95,8 +97,8 @@ function useProfileEdit(user) {
         });
 
         } catch(error) {
-
         }
+        handleEditHide();
         editingLoading.value = false;
     }
 
@@ -119,6 +121,7 @@ function useProfileEdit(user) {
 
     }
 }
+  
 </script>
 
 <template>
@@ -172,7 +175,7 @@ function useProfileEdit(user) {
 
                 <BaseButton
                 :loading="editingLoading"
-                >Actualizar mis datos
+                >Actualizar
                 </BaseButton>
 
                 <BaseButton
@@ -204,6 +207,7 @@ function useProfileEdit(user) {
                     </div>
                         <BaseButton
                         :loading="editingPhotoLoading"
+                        @click="doEditProfile"
                         >Actualizar foto
                         </BaseButton>
 
