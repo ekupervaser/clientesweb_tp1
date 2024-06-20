@@ -70,7 +70,7 @@ export default {
                             </template>
                             <template v-if="userFirestore.role !== 'admin'">
                                 <li>
-                                    <router-link to="/cursos">Cursos</router-link>
+                                    <router-link to="/servicios">Servicios</router-link>
                                 </li>
                                 <li>
                                     <router-link to="/contacto">Contacto</router-link>

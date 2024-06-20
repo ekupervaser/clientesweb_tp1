@@ -7,6 +7,7 @@ import BaseInput from '../components/BaseInput.vue';
 import { editProfile, editProfilePhoto } from '../services/auth';
 import Loader from '../components/Loader.vue';
 import { useRouter } from 'vue-router';
+import { formatFirebaseDate } from '../helpers/date';
 
 const { user, userLoading } = useAuth();
 
@@ -121,41 +122,49 @@ function useProfileEdit(user) {
 
     }
 }
-  
+
 </script>
 
 <template>
     <template v-if="!userLoading">
         <div class="flex flex-col items-center">
-            <h1 class="text-3xl font-black mb-4 text-center">Mi perfil</h1>
-
-            <template class="flex" v-if="!editing && !editingPhoto">
-                <template class="flex flex-col items-center">
-                    <div class="flex flex-col items-center">
-                      
-                        <img v-if="user.photoURL" :src="user.photoURL" alt="Foto del perfil" class="w-[150px] h-[150px] rounded-full" style="object-fit: cover;">
-                        <img v-else src="public/user.png" alt="Sin foto del perfil" class="w-[150px] h-[150px] rounded-full" style="object-fit: cover;">
-                        <button
-                            class="bg-white p-1 rounded-full -mt-8"
+            <h1 class="text-3xl font-black mb-4 text-center w-100">Mi perfil</h1>
+            <div class="flex w-[100%] justify-center items-center" v-if="!editing && !editingPhoto">
+                    <div class="flex flex-col items-center p-3 mb-2 bg-light shadow mr-10">
+                        <img v-if="user.photoURL" :src="user.photoURL" alt="Foto del perfil" class="w-[100px] h-[100px] rounded-full" style="object-fit: cover;">
+<!--                         <img v-else src="public/user.png" alt="Sin foto del perfil" class="w-[150px] h-[150px] rounded-full" style="object-fit: cover;">
+ -->                        <button
+                            class="bg-white p-1 rounded-full -mt-7 text-sm"
                             @click="handlePhotoFormShow"
                             >
                             {{user.photoURL ? 'Actualizar' : 'Cargar'}}
                         </button>
-     
+                        <div class="mt-5">
+                            <p class="font-bold">Email</p>
+                            <p class="mb-2">{{ user.email }}</p>
+                            <p class="font-bold">Nombre</p>
+                            <p class="mb-2">{{ user.displayName || 'No especificado' }}</p>
+                            <p class="font-bold">Rol</p>
+                            <p>{{ user.role || 'Usuario estándar' }}</p>
+                            <BaseButton
+                            @click="handleEditShow"
+                            >Editar mis datos</BaseButton>
+                        </div>
                     </div>
-                    <div class="mt-5">
-                        <p class="font-bold">Email</p>
-                        <p class="mb-2">{{ user.email }}</p>
-                        <p class="font-bold">Nombre</p>
-                        <p class="mb-2">{{ user.displayName || 'No especificado' }}</p>
-                        <p class="font-bold">Rol</p>
-                        <p>{{ user.role || 'Usuario estándar' }}</p>
-                        <BaseButton
-                        @click="handleEditShow"
-                        >Editar mis datos</BaseButton>
+                    <div>
+                        <h2 class="mb-3 text-xl font-black">Mis cursos comprados</h2>
+                        <template v-if="!user.coursesPurchased">
+                            <p>No tenés ningún curso comprado.</p>
+                        </template>
+                        <template v-else>
+                            <ul>
+                            <li v-for="course in user.coursesPurchased" :key="course.id">
+                                {{ formatFirebaseDate(course.purchaseDate) }} {{ course.name }}
+                            </li>
+                        </ul>
+                        </template>
                     </div>
-                </template>
-            </template>
+                </div>
 
             <template v-else-if="editing">
                 <form
@@ -172,18 +181,15 @@ function useProfileEdit(user) {
                         >
                         </BaseInput>
                     </div>
-
                 <BaseButton
                 :loading="editingLoading"
                 >Actualizar
                 </BaseButton>
-
                 <BaseButton
                 @click="handleEditHide"
                 >Cancelar
                 </BaseButton>
                 </form>
-
             </template>
             <template v-else>
                 <form
@@ -200,7 +206,6 @@ function useProfileEdit(user) {
                             @change="handlePhotoChange"
                         />
                     </div>
-
                     <div v-if="photoData.preview !== null" class="container">
                         <p>Previsualización de la foto seleccionada</p>
                         <img :src="photoData.preview" alt="Foto de prefil" class="mt-3 m-auto" style="width: 200px; height: 200px;">
@@ -210,7 +215,6 @@ function useProfileEdit(user) {
                         @click="doEditProfile"
                         >Actualizar foto
                         </BaseButton>
-
                         <BaseButton
                         @click="handlePhotoFormeHide"
                         >Cancelar

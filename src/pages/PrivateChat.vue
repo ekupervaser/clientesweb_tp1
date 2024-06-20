@@ -70,9 +70,7 @@ export default {
 <template>
       <Loader v-if="userLoading"></Loader>
         <template v-else>
-
             <h1 class="text-3xl font-black mb-4 text-center">Conversación con {{ user.email }}</h1>
-
             <h2 class="sr-only">Mensajes</h2>
             <div class="flex flex-col items-start min-h-[400px] max-w-[800px] mx-auto p-4 mb-4 border border-gray-300 rounded">
                 <Loader v-if="messagesLoading"></Loader>
@@ -86,21 +84,17 @@ export default {
                          'self-end': message.senderId === authUser.id,
                     }"
                     >
-
                     <div>{{ message.message }}</div>
                     <div class="text-right"> {{ formatDate(message.created_at) || 'Enviando...'}} </div>
-
                     </div>
                 </template>
             </div>
-
             <h2 class="sr-only">Enviar mensajes</h2>
             <form 
             class="flex gap-2 max-w-[800px] mx-auto"
                 action=""
                 @submit.prevent="handleSendMessage" 
                 >
-
                 <label for="message" class="sr-only"></label>
                 <BaseTextarea
                 id="message"

@@ -1,9 +1,8 @@
 import { auth } from "./firebase";
-import { ref } from "vue";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { getUserProfileById, createUserProfile, updateUserProfile } from './user.js';
 import { getFileURL, uploadFile } from "./file-storage.js";
-import { getCourseById } from "./courses.js";
+import { getCourseById } from "./shine-services.js";
 
 let userData = {
   id: null,
@@ -15,7 +14,6 @@ let userData = {
 }
 
 let observers = [];
-
 
 if (localStorage.getItem('user')) {
   userData = JSON.parse(localStorage.getItem('user'));
@@ -213,6 +211,7 @@ function setUserData (newData) {
     ...userData,
     ...newData,
   }
+
   localStorage.setItem('user', JSON.stringify(userData));
   notifyAll();
 }

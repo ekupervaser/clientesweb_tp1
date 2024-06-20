@@ -17,3 +17,10 @@ export function dateToString(date) {
     }
    
 }
+
+export function formatFirebaseDate (firestoreDate) {
+    const date = new Date(firestoreDate.seconds * 1000 + firestoreDate.nanoseconds / 1000000);
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+  };
+    

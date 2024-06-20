@@ -51,7 +51,6 @@ export async function deleteCourse(courseId) {
     try {
       await deleteDoc(courseRef);
     } catch (error) {
-      console.error(error);
     }
   }
   

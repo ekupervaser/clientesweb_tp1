@@ -1,6 +1,7 @@
 <script>
 import { getUserProfileById } from '../services/user';
-import { getCourseById } from '../services/courses';
+import { getCoursesPurchasedByUser } from '../services/shine-services';
+import { useAuth } from '../composition/useAuth'
 import Loader from '../components/Loader.vue';
 
 export default {
@@ -31,12 +32,7 @@ export default {
     },
     async loadCourseData() {
       try {
-          this.courseData = await Promise.all(
-            this.user.coursesPurchased.map(async (courseId) => {
-              const course = await getCourseById(courseId);
-              return course;
-            })
-          );
+          this.courseData = await getCoursesPurchasedByUser(this.user.id);
       } catch (error) {
 
       } 
@@ -70,3 +66,4 @@ export default {
     </template>
   </div>
 </template>
+../services/shine-services

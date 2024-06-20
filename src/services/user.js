@@ -1,5 +1,6 @@
 import { doc, getDoc, serverTimestamp, setDoc, collection, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "./firebase";
+import { useAuth } from '../composition/useAuth';
 
 /**
  * Función para obtener el listado de usuarios registrados
@@ -34,6 +35,7 @@ export async function getUserProfileById(id) {
     const refUser = doc(db, `users/${id}`);
     const docSnapshot = await getDoc(refUser);
 
+    const data = docSnapshot.data();
     return {
         id: docSnapshot.id,
         email: docSnapshot.data().email,
@@ -57,7 +59,6 @@ export async function createUserProfile(id, data) {
         return setDoc(refUser, {...data, created_at: serverTimestamp()});
 
     } catch (error) {
-        console.error('Error al crear el usuario en Firestore:', error);
         throw error;
     }
 }
@@ -75,3 +76,23 @@ export async function updateUserProfile(id, data) {
     {...data}
     );
 }
+
+/**
+ * Función para cargar la información del usuario en Firestore
+ * 
+ * @param {Object} user
+ * @returns {void}
+ */
+export async function loadUserData(user) {
+  /*   const { user } = useAuth() */
+    if (user) {
+      const userDocRef = doc(db, `users/${user.value.id}`);
+      const userDocSnapshot = await getDoc(userDocRef);
+  
+      if (userDocSnapshot.exists()) {
+        const userData = userDocSnapshot.data();
+        user.value.courses = userData.courses || [];
+      }
+    }
+  }
+  

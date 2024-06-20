@@ -23,7 +23,6 @@ export default {
                 await register({...this.newUser});
                 this.$router.push('/');
             } catch (error) {
-                //manejo del error
             }
             this.isLoading = false;
           
@@ -39,7 +38,7 @@ export default {
         @submit.prevent="handleSubmit"
         >
             <div>
-                <BaseLabel for="email">Email</BaseLabel>
+                <BaseLabel modelFor="email">Email</BaseLabel>
                 <BaseInput 
                 type="email" 
                 id="email"
@@ -47,7 +46,7 @@ export default {
                 />
             </div>
             <div>
-                <BaseLabel for="password">Contraseña</BaseLabel>
+                <BaseLabel modelFor="password">Contraseña</BaseLabel>
                 <BaseInput 
                 type="password" 
                 id="password"

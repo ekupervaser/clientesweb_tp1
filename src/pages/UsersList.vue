@@ -22,7 +22,6 @@ methods: {
         const userList = await getUsers();
         this.userList = userList;
     } catch (error) {
-        console.error('Error al obtener usuarios:', error);
     }
 },
 },
@@ -35,7 +34,6 @@ methods: {
     <div class="text-center">
       <h1 class="text-3xl font-black mb-4">Usuarios</h1>
       <p class="mb-2">Listado de usuarios</p>
-
       <table class="min-w-full border border-gray-300">
         <thead>
           <tr>

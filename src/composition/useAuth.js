@@ -26,7 +26,11 @@ export function useAuth() {
         });
     });
 
-    onUnmounted(() => unsubscribeAuth());
+    onUnmounted(() => {
+        if (unsubscribeAuth) {
+            unsubscribeAuth();
+        }
+    });
 
     return {
         user,

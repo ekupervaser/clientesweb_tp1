@@ -1,10 +1,16 @@
 <script>
 export default {
-    name: 'BaseLabel'
+    name: 'BaseLabel',
+    props: { 
+        modelFor: {
+        type: String,
+        required: true,
+        }
+    }
 }
 </script>
 
 <template>
-    <label class="block font-bold" for="user"></label>
+    <label class="block font-bold" :for="modelFor"></label>
     <slot></slot>
 </template>

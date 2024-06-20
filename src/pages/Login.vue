@@ -11,15 +11,13 @@ const router = useRouter();
 const loginLoading = ref(false);
 
 let loginErrorMessage = ref(null);
-    
+
 const form = ref({
     email: '',
     password: '',
 });
 
-
 const doLogin = async () => {
-
     try {
         loginLoading.value = true;
         await login({
@@ -31,7 +29,7 @@ const doLogin = async () => {
         }
 
     } catch (error) {
-        if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-login-credentials') {
+        if (error.code === 'auth/missing-password' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-login-credentials') {
             loginErrorMessage = 'Credenciales inválidas';
         }
     }
@@ -39,7 +37,6 @@ const doLogin = async () => {
 }
 
 </script>
-
 <template>
     <div class="max-w-screen-sm flex flex-col justify-center m-auto">
         <h1 class="text-3xl font-black mb-4">Iniciar sesión</h1>
@@ -47,7 +44,7 @@ const doLogin = async () => {
         @submit.prevent="doLogin"
         >
             <div>
-                <BaseLabel>Email</BaseLabel>
+                <BaseLabel modelFor="email">Email</BaseLabel>
                 <BaseInput
                 :disabled="loginLoading"
                 type="email" 
@@ -56,7 +53,7 @@ const doLogin = async () => {
                 />
             </div>
             <div>
-                <BaseLabel>Contraseña</BaseLabel>
+                <BaseLabel modelFor="password">Contraseña</BaseLabel>
                 <BaseInput 
                 :disabled="loginLoading"
                 type="password" 

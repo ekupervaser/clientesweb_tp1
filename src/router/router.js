@@ -21,7 +21,7 @@ const routes = [
     {path: '/cargar-curso',       component: NewCourse,      meta: { requiresAuth: true }, },
     {path: '/contacto',           component: Contact,        meta: { requiresAuth: true }, },
     {path: '/usuarios',           component: UsersList,      meta: { requiresAuth: true }, },
-    {path: '/cursos',             component: Courses,        meta: { requiresAuth: true }, },
+    {path: '/servicios',          component: Courses,        meta: { requiresAuth: true }, },
     {path: '/registro',           component: Register},
     {path: '/login',              component: Login},
 
